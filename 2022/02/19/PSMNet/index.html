@@ -96,7 +96,7 @@
 	            <a href="#s1">分类</a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/CV/">CV</a></li><li><a class="category-link" href="/categories/%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC/">数学推导</a>
+	                        <a class="category-link" href="/categories/DL/">DL</a></li><li><a class="category-link" href="/categories/cv/">cv</a></li><li><a class="category-link" href="/categories/%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC/">数学推导</a></li><li><a class="category-link" href="/categories/%E6%95%B0%E5%AD%A6%E6%A8%A1%E5%9E%8B/">数学模型</a>
 	                    </ul>
 	        </li>
 	        
@@ -106,7 +106,7 @@
 	            <a href="#s1">归档</a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="archive-link" href="/archives/2022/03/">March 2022</a></li><li><a class="archive-link" href="/archives/2021/11/">November 2021</a>
+	                        <a class="archive-link" href="/archives/2022/03/">March 2022</a></li><li><a class="archive-link" href="/archives/2022/02/">February 2022</a></li><li><a class="archive-link" href="/archives/2022/01/">January 2022</a></li><li><a class="archive-link" href="/archives/2021/11/">November 2021</a>
 	                    </ul>
 	        </li>
 	        
@@ -141,7 +141,7 @@
 </nav>
 
         <div id="main" >
-            <div class ="post_page_title_img" style="height: 25rem;background-image: url(https://images8.alphacoders.com/505/505303.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(img/back-PSMNet.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
                 <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >PSMNet</h2></a>
             </div>
             <!-- Post -->
@@ -154,19 +154,21 @@
 <p>感受域其实就是一层网络输出里每一个格子对应的原图上的范围，比如原图上每一个像素的感受域就是一个像素，而对图像采用2*2的普通卷积，那么输出的每一个像素就对应原图2*2大小的范围。因此空洞卷积就能扩大输出的感受域。</p>
 </blockquote>
 <h5 id="2-2stacked-hourglass结构"><a href="#2-2stacked-hourglass结构" class="headerlink" title="2.2stacked hourglass结构"></a>2.2stacked hourglass结构</h5><p>这一步有点像是在不同分辨率下的残差网络。原文中对比了直接使用残差网络和这一结构的效果，直接使用残差网络的效果远不如stacked hourglass结构。这个结构由连续三个不同分辨率下的残差网络构成，如下图。</p>
+<p><img src="1.png" alt=""></p>
 <p>在训练阶段，每一个部分都会输出一个视差的结果用于中间的监督训练。训练的loss由三个视差输出的加权得到。</p>
 <h5 id="2-3cost-volumn的理解"><a href="#2-3cost-volumn的理解" class="headerlink" title="2.3cost volumn的理解"></a>2.3cost volumn的理解</h5><p>之前在看立体综述那个ppt和其他论文的时候对<strong>cost volumn</strong>一直不太理解，这一次复现的时候通过编程才知道了其含义。从数学形式上，它是一个四维的张量，大小为H*W*D<em>S(S为特征数\</em>2)，它通过将特征图平移，得到了不同视差下特征对应的张量。比如在d=0这一维，即原左图和右图位置直接一一对应，因此分别将左图的特征填入d=0,s=0~S/2这一维，将右图填入d=0,s=S/2+1~S这一维；在d=1这一维，则左图特征填入位置不变，右图填入位置向右平移一个单位，空余位置补0.</p>
 <h5 id="2-4多通道卷积和三维卷积的理解"><a href="#2-4多通道卷积和三维卷积的理解" class="headerlink" title="2.4多通道卷积和三维卷积的理解"></a>2.4多通道卷积和三维卷积的理解</h5><p>之前一直比较疑惑多通道卷积和三维卷积的区别，因为从计算方式和卷积核的大小上来看它们是相似的。经过越哥的讲解以后才知道卷积的维数不取决于它的卷积核的通道数，而是它在<strong><u>滑动过程中有几个自由度</u></strong>，比如RGB图像的二维卷积的卷积核虽然有三个通道，但它只能在H和W方向上滑动，在C方向上其通道数就等于图像通道数，无法滑动，因此只有两个自由度；而若在一段RGB视频的图像序列上，三通道卷积核会在C方向上滑动检测一些例如运动方面的信息，这就是三维卷积。</p>
 <hr>
 <h4 id="3-复现结果"><a href="#3-复现结果" class="headerlink" title="3.复现结果"></a>3.复现结果</h4><p>我在复现时，由于电脑比较拉，所以把输入的分辨率调小为原文的一半，数据集也只采用了SceneFlow的Monkaka数据集，得到的结果不理想。训练的loss如下：</p>
+<p><img src="2.png" alt=""></p>
 <p>最终loss收敛于10左右，而在测试时loss大概在40-60，匹配结果只有在一些很明显的边沿才能看到一些。根据我的推测是因为当输入分辨率过小时，图像由于尺寸问题无法学习到上下文信息，并且训练集样本量也较少（只有3000）导致匹配的误差很大。</p>
 <p>最后使用原文预训练好的模型测试了一下，loss为0.65，定性图如下：</p>
 <div class="table-container">
 <table>
 <thead>
 <tr>
-<th></th>
-<th></th>
+<th><img src="3.png" alt=""></th>
+<th><img src="4.png" alt=""></th>
 </tr>
 </thead>
 <tbody>
@@ -181,8 +183,8 @@
 <table>
 <thead>
 <tr>
-<th></th>
-<th></th>
+<th><img src="5.png" alt=""></th>
+<th><img src="6.png" alt=""></th>
 </tr>
 </thead>
 <tbody>
@@ -255,8 +257,8 @@ $('.btn_click_load').click(function() {
 -->
 <script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = 'http://example.com/2022/03/21/PSMNet/';  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = 'http://example.com/2022/03/21/PSMNet/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = 'http://example.com/2022/02/19/PSMNet/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://example.com/2022/02/19/PSMNet/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
 </script>
 
