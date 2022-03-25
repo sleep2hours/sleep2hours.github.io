@@ -1,0 +1,316 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/logo_miccall.png"/>
+	<link rel="shortcut icon" href="/img/logo_miccall.png">
+	
+			    <title>
+    sleep2hours.github.io
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/mic_main.css" />
+    <link rel="stylesheet" href="/css/dropdownMenu.css" />
+    <meta name="keywords" content="Luo" />
+    
+    	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	 
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/bg.jpg') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+			    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script async type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+    
+		
+<!-- Layouts -->
+
+
+
+<!--  代码渲染  -->
+<link rel="stylesheet" href="/css/prism_coy.css" />
+<link rel="stylesheet" href="/css/typo.css" />
+<!-- 文章页 -->
+<body class="is-loading">
+    <!-- Wrapper 外包 s-->
+    <div id="wrapper" class="fade-in">
+        <!-- Intro 头部显示 s -->
+        <!-- Intro 头部显示 e -->
+        <!-- Header 头部logo start -->
+        <header id="header">
+    <a href="/" class="logo">Welcoming!</a>
+</header>
+        <!-- Nav 导航条 start -->
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow">主页</a>
+	        </li>
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="#s1">分类</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        <a class="category-link" href="/categories/DL/">DL</a></li><li><a class="category-link" href="/categories/cv/">cv</a></li><li><a class="category-link" href="/categories/%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC/">数学推导</a></li><li><a class="category-link" href="/categories/%E6%95%B0%E5%AD%A6%E6%A8%A1%E5%9E%8B/">数学模型</a>
+	                    </ul>
+	        </li>
+	        
+	        <!-- archives  归档   --> 
+	        
+	        <li class="active">
+	            <a href="#s1">归档</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        <a class="archive-link" href="/archives/2022/03/">March 2022</a></li><li><a class="archive-link" href="/archives/2022/02/">February 2022</a></li><li><a class="archive-link" href="/archives/2022/01/">January 2022</a></li><li><a class="archive-link" href="/archives/2021/11/">November 2021</a>
+	                    </ul>
+	        </li>
+	        
+	        
+		        <!-- Pages 自定义   -->
+		        
+		        <li>
+		            <a href="/about/" title="简历">
+		                简历
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/tag/" title="标签">
+		                标签
+		            </a>
+		        </li>
+		        
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+                    <li>
+                        <a title="github" href="https://github.com/sleep2hours" target="_blank" rel="noopener">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                    
+			</ul>
+</nav>
+
+        <div id="main" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(img/raft-back.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >RAFT-Stereo</h2></a>
+            </div>
+            <!-- Post -->
+            <div class="typo" style="padding: 3rem;">
+                <h2 id="RAFT-Stereo论文笔记"><a href="#RAFT-Stereo论文笔记" class="headerlink" title="RAFT-Stereo论文笔记"></a>RAFT-Stereo论文笔记</h2><blockquote>
+<p>本篇文章是对CVPR2018的一篇光流文章RAFT的拓展应用，将光流匹配问题限制在同一y坐标上。</p>
+<p><img src="img/1.png" alt="image-20220325110132699" style="zoom:67%;" /></p>
+</blockquote>
+<hr>
+<h3 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h3><p>3D卷积在视差估计中占主导地位，但是运算量太大，而光流的迭代修正方法可以用在高分辨率的图像计算上。RAFT-Stereo把RAFT的光流匹配4D volumn变成了视差匹配的3D volumn，在同一y坐标上算像素的相似度。<strong>并以不同的速度更新不同分辨率的GRU单元，</strong>最终上采样出视差图。以往的视差匹配主要依靠的是3D卷积来形成cost volumn，<strong>但是RAFT-Stereo只用了2D卷积和矩阵相乘来形成cost volumn</strong>。</p>
+<hr>
+<h3 id="2-模型结构"><a href="#2-模型结构" class="headerlink" title="2.模型结构"></a>2.模型结构</h3><blockquote>
+<p>本文的方法主要包含三部分：</p>
+<ul>
+<li>特征提取</li>
+<li>相关金字塔</li>
+<li>基于GRU的更新符</li>
+</ul>
+</blockquote>
+<h4 id="2-1特征提取"><a href="#2-1特征提取" class="headerlink" title="2.1特征提取"></a>2.1特征提取</h4><p>特征图和以往方法结构一样，通过残差网络提取特征后进行下采样。但是为了保存一些信息，<strong>对左图又单独提取了一份文本特征送入每个GRU单元</strong>。这一部分感觉<del>有点魔法</del>，特征图和文本图的结构完全相同，但是特征提取用的是batch normalization,内容提取用的是Instance normali（二者的区别可以参见我的另一篇博客<a target="_blank" rel="noopener" href="https://sleep2hours.github.io/2022/03/21/transformer/">transformer</a>）,可能是为了防止不同图片的特征相差过大，因此对每个图片的特征做单独的归一化。</p>
+<h4 id="2-2相关金字塔"><a href="#2-2相关金字塔" class="headerlink" title="2.2相关金字塔"></a>2.2相关金字塔</h4><h5 id="2-2-1correlation-volumn"><a href="#2-2-1correlation-volumn" class="headerlink" title="2.2.1correlation volumn"></a>2.2.1correlation volumn</h5><p>correlation pyramid是用向量内积来衡量像素相关度的张量，类似于cost volumn，但是它们的不同点在于：</p>
+<ul>
+<li>correlation pyramid的深度不再是最大深度D，而是图片的宽度。</li>
+ <li>由第一条可以看出，相当于不再存在cost volumn计算时视差恒大于等于0的假设。</li>
+<li>correlation pyramid可以用矩阵乘积直接计算，有利于GPU加速。</li>
+</ul>
+
+<p>其计算公式如下：</p>
+<center><img src="img/2.png" alt="image-20220308163256638" style="zoom:100%;" /></center>
+
+<blockquote>
+<p>这里的代码有一个有趣的Pytorch函数：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">corr=torch.einsum(<span class="string">&#x27;aijk,aijh-&gt;ajkh&#x27;</span>,fmap1,fmap2)</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">torch.einsum(&#x27;aijk,aijh-&gt;ajkh&#x27;,input1,input2)，aijk、aijh分别是input1、input2的大小，</span></span><br><span class="line"><span class="string">ajkh是输出的大小，该函数会在第i维上求两个张量的内积</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<h5 id="2-2-2correlation-pyramid"><a href="#2-2-2correlation-pyramid" class="headerlink" title="2.2.2correlation pyramid"></a>2.2.2correlation pyramid</h5><p>通过生成原始的correlation volumn，在特征维进行一维的大小为2的平均池化，使得新生成的correlation volumn的特征通道数越来越少，感受域越来越广，但是原图分辨率不变，从而可以可以得到比较好的对信息的维护，将这些不同深度的correlation volumn作为GRU单元的输入。</p>
+<h5 id="2-2-3-correlation-Lookup"><a href="#2-2-3-correlation-Lookup" class="headerlink" title="2.2.3 correlation Lookup"></a>2.2.3 correlation Lookup</h5><p>本文在查找某一位置、某一视差下两个像素的匹配度时，是对整个correlation pyramid的不同层级的correlation volumn都进行了采样并插值，如下图：</p>
+<center><img src="img/3.png" alt="image-20220325112417814" style="zoom:90%;" /></center>
+
+<p>给定一个搜索半径r，将每个correalation volumn的对应视差处的$[-r,r]$范围的相关值提取出来并concat在一起。这里代码在实现时，与文章描述的略有不同。代码在实现时，确实在当前视差处的前后各取了r个值，<strong>但是是从$[0,w]$的两端开始均匀插值后进行取值，而不是直接去前后离散的相挨的值。</strong></p>
+<blockquote>
+<p>这里对Pytorch的双线性插值函数进行简短的讲解：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#torch的双线性插值采样</span></span><br><span class="line">F.grid_sample(<span class="built_in">input</span>,grid,align_corners=<span class="literal">True</span>)</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">input输入为(N*C*Hi*Wi),grid输入为(N*Ho*Wo*2)且其值在[-1,1],输出为(N*C*Ho*Wo),</span></span><br><span class="line"><span class="string">grid坐标值为(x_ho,y_wo)的点x_Ho对应Wi，y_wo对应Hi，插值时先计算Wi维度上的插值，再计算H维度上的插值。</span></span><br><span class="line"><span class="string">grid生成方法如下：</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line">d1=torch.linspace(-<span class="number">1</span>,<span class="number">1</span>,n1)  <span class="comment">#归一化到[-1,1]</span></span><br><span class="line">d2=torch.linspace(-<span class="number">1</span>,<span class="number">1</span>,n2)  <span class="comment">#归一化到[-1,1]</span></span><br><span class="line">meshx,meshy=torch.meshgrid((d1,d2))</span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">输入的tensor1、2必须是一维的，输出两个tensor，其行数为第一个tensor的维数，其列数为第二个tensor的维数，</span></span><br><span class="line"><span class="string">第一个输出张量为第一个输入张量按列重复；第二个输出张量为第二个输入张量按行重复</span></span><br><span class="line"><span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line">grid=torch.stack((meshy,meshx),<span class="number">2</span>)</span><br><span class="line">grid=grid.unsqueeze(<span class="number">0</span>) </span><br></pre></td></tr></table></figure>
+</blockquote>
+<h4 id="2-3多级更新GRU"><a href="#2-3多级更新GRU" class="headerlink" title="2.3多级更新GRU"></a>2.3多级更新GRU</h4><p>RAFT的GRU单元一直在最高分辨率下操作，导致感受域扩大的太慢。RAFT-Stereo通过耦合不同分辨率的视差和特征，扩大了感受域。由于RAFT的视差预测是在1/4和1/8分辨率下进行的，通过3*3的加权卷积把视差上采样回原分辨率。在1/8分辨率下训练GRU是1/16分辨率所需时间的4倍，本文在训练一次1/8的GRU时会训练2次1/16和3次1/32的GRU。结果表明速度提升很明显。</p>
+<h4 id="2-4loss"><a href="#2-4loss" class="headerlink" title="2.4loss"></a>2.4loss</h4><p>最基本的L1loss加权：</p>
+<center><img src="img/4.png" alt="image-20220308163256638" style="zoom:100%;" /></center>
+
+<h3 id="3-实验结果"><a href="#3-实验结果" class="headerlink" title="3.实验结果"></a>3.实验结果</h3><p>由于我目前对光流问题了解有限，代码实现中涉及到一些光流网络的构建部分还没有理解透彻，因此只完成了模型主体的构建部分，等以后进一步了解光流问题后再回头来完整复现（挖个坑），这次利用作者预训练的模型检验了结果：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th><img src="img/5.png" alt="image-20220325114208484"></th>
+<th><img src="img/7.png" alt="image-20220325114221163"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="img/6.png" alt=""></td>
+<td><img src="img/8.png" alt="image-20220325114226019"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h3 id="4-Reference"><a href="#4-Reference" class="headerlink" title="4.Reference"></a>4.Reference</h3><p>RAFT-Stereo: Multilevel Recurrent Field Transforms for Stereo Matching,<a target="_blank" rel="noopener" href="https://arxiv.org/search/cs?searchtype=author&amp;query=Lipson%2C+L">Lahav Lipson</a>, <a target="_blank" rel="noopener" href="https://arxiv.org/search/cs?searchtype=author&amp;query=Teed%2C+Z">Zachary Teed</a>, <a target="_blank" rel="noopener" href="https://arxiv.org/search/cs?searchtype=author&amp;query=Deng%2C+J">Jia Deng</a>,<strong><a target="_blank" rel="noopener" href="https://arxiv.org/abs/2109.07547"> arXiv:2109.07547</a></strong></p>
+
+            </div>
+
+            <!-- Post Comments -->
+            
+    <!-- 使用 DISQUS_CLICK -->
+<div id="disqus-comment">
+    <div id="disqus_thread"></div>
+
+<!-- add animation -->
+<style>
+	.disqus_click_btn {
+            line-height: 30px;
+            margin: 0;
+            min-width: 50px;
+            padding: 0 14px;
+            display: inline-block;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0;
+            overflow: hidden;
+            will-change: box-shadow;
+            transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1), color .2s cubic-bezier(.4, 0, .2, 1);
+            outline: 0;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            vertical-align: middle;
+            border: 0;
+            background: rgba(158, 158, 158, .2);
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+            color: #fff;
+            background-color: #7EC0EE;
+            text-shadow: 0
+        }
+</style>
+	
+<div class="btn_click_load" id="disqus_bt"> 
+    <button class="disqus_click_btn">点击查看评论</button>
+</div>
+
+<!--
+<script type="text/javascript">
+$('.btn_click_load').click(function() {
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'http-miccall-tech'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    document.getElementById('disqus_bt').style.display = "none";
+});
+</script>
+-->
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://example.com/2022/03/25/RAFT-Stereo/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://example.com/2022/03/25/RAFT-Stereo/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+</script>
+
+<script type="text/javascript">
+    $('.btn_click_load').click(function() {  //click to load comments
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document;
+            var s = d.createElement('script');
+            s.src = '//http-miccall-tech.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', + new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+        $('.btn_click_load').css('display','none');
+    });
+</script>
+</div>
+<style>
+    #disqus-comment{
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+
+        </div>
+        <!-- Copyright 版权 start -->
+                <div id="copyright">
+            <ul>
+                <li>&copy;Powered By <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/" style="border-bottom: none;">hexo</a></li>
+                <li>Design: <a target="_blank" rel="noopener" href="http://miccall.tech " style="border-bottom: none;">miccall</a></li>
+            </ul>
+            
+                <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+			
+        </div>
+    </div>
+</body>
+
+
+
+ 	
+</html>

@@ -157,9 +157,8 @@
 <center><img src=img/2.png alt="image-20220316091541736" style="zoom:50%;" /></center>
 
 <p>​        <strong>encoder</strong>结构其实就是一系列咩有输出的RNN单元，最终生成中间向量<strong>encoder vector</strong>；而<strong>decoder</strong>结构将encoder vector以及decoder自身的上一级输出（自回归）作为输入。最终就完成了不同长度序列的映射。当然这只是最基础的结构，单纯一个<strong>encoder vector</strong>是无法把输入的所有信息保存下来的，因此需要进一步的提升比如注意力机制。<strong>注意解码器的输出是自回归的（串行），要一个一个来。</strong>Transformer就是基于编码器解码器结构的。</p>
-<h4 id="1-2transformer的编码解码器"><a href="#1-2transformer的编码解码器" class="headerlink" title="1.2transformer的编码解码器"></a>1.2transformer的编码解码器</h4><ul>
-<li><strong>encoder</strong>组成结构为两个子层：一个多头注意力一个全连接层，每个子层会经过残差相加后进入LayerNorm，即</li>
-</ul>
+<h4 id="1-2transformer的编码解码器"><a href="#1-2transformer的编码解码器" class="headerlink" title="1.2transformer的编码解码器"></a>1.2transformer的编码解码器</h4><ul><li>encoder组成结构为两个子层：一个多头注意力一个全连接层，每个子层会经过残差相加后进入LayerNorm，即</li><ul>
+
 <p>$$<br>LayerNorm(x+Sublayer(x))<br>$$</p>
 <blockquote>
 <p><strong>不同Normalization的方法</strong>：</p>
@@ -168,47 +167,49 @@
 <p>Normalization是对数据在激活函数前进行归一化，然后再进行线性偏移，学习的参数是两个线性偏移参数。</p>
 <p>BN是对batch里所有图像的单特征进行归一化；LN是单batch(一个样本)所有通道特征进行归一化；IN是单batch单特征进行归一化；GN是多特征单图像进行归一化。这里再说说LN和BN的用处，Attention这篇论文里用的LN可能是因为当时是为了处理语言序列，而语言序列通常的输入长度是不同的，那么如果用BN的话所有batch输入的同一特征的长度（H，W维度）可能是不同的（<strong>就像上图第一个正方体画蓝色的正方形区域在HW维度上变成了高度参差的直方图</strong>），而Norm最终学得的参数相当于是全局的均值和方差，因此输入大小不同就导致BN训练中的波动较大，而用LN则不管输入大小如何都是对一个样本进行Norm，结果会更加稳定。</p>
 </blockquote>
-<ul>
-<li><strong>decoder</strong>结构和Encoder很像，但是多了一个mask保证t时刻不会看到t时刻以后的输入。</li>
-</ul>
+<ul><li>decoder结构和Encoder很像，但是多了一个mask保证t时刻不会看到t时刻以后的输入。</li></ui>
+
 <hr>
 <h3 id="2-注意力机制"><a href="#2-注意力机制" class="headerlink" title="2.注意力机制"></a>2.注意力机制</h3><h4 id="2-1直观感受"><a href="#2-1直观感受" class="headerlink" title="2.1直观感受"></a>2.1直观感受</h4><p>​        当我们说起提高对某某注意力时，我们时常会对这件事有特别的关注。神经网络的注意力机制也是这样，它主要用来提升对网络输入与输出间的相关度（<strong>General Attention</strong>）以及输入与输入之间的相关度(<strong>Self-Attention</strong>)。举个例子，在机器翻译中，注意力机制要做的事就是<strong>量化输入与输出词之间的相关度，并且对每个输出字赋予与它相关度高的输入字更高的权重，</strong>比如把<u>“我喜欢玩悠悠球”</u>翻译成<u>“I like playing yoyo.”</u>时，对于输出”playing”,输入“玩”相比于其他输入就应该有着更高的权重；而对于输出”yoyo”,输入“悠悠球”就应该有着更高的权重。</p>
-<h4 id="2-2Scaled-Dot-Product-Attention"><a href="#2-2Scaled-Dot-Product-Attention" class="headerlink" title="2.2Scaled Dot-Product Attention"></a>2.2Scaled Dot-Product Attention</h4><p>​        一个注意力函数是query到key-value的映射，其中query、key、value均是向量，output是所有value的加权和，这个权重取决于key和query的相关性。这里我的理解是，query就相当于上面我们说的我要翻译的一个词（悠悠球），而词库的key（yoyo、playing、dog…）用来衡量与query的距离，最终决定每一个输出value（单词的机器表示）的权重。<u>如果key和value不变，而query改变，那么对应的权重也会发生改变，这就是注意力机制</u>。**那么应该如何衡量相似度呢？ **</p>
+<h4 id="2-2Scaled-Dot-Product-Attention"><a href="#2-2Scaled-Dot-Product-Attention" class="headerlink" title="2.2Scaled Dot-Product Attention"></a>2.2Scaled Dot-Product Attention</h4><p>​        一个注意力函数是query到key-value的映射，其中query、key、value均是向量，output是所有value的加权和，这个权重取决于key和query的相关性。这里我的理解是，query就相当于上面我们说的我要翻译的一个词（悠悠球），而词库的key（yoyo、playing、dog…）用来衡量与query的距离，最终决定每一个输出value（单词的机器表示）的权重。<u>如果key和value不变，而query改变，那么对应的权重也会发生改变，这就是注意力机制</u>。<b>那么应该如何衡量相似度呢? </b></p>
 <p>​        注意力机制的不同就是注意力函数版本的不同，transformer中使用的就是最基本的内积函数，即用query向量和key向量做内积，如果二者完全正交那么相似度最低，否则两个向量越接近相似度越大。</p>
-<center><img src=img/4.png alt="image-20220320110149788" style="zoom:67%;" /></center>
+<center><img src=img/4.png alt="image-20220320110149788" style="zoom:100%;" /></center>
 
-<p>​        假设query、key向量的维度均为$d_k$（可以对短的向量进行补零），在计算中为了运用并行计算提高效率，将所有query排列成矩阵$Q(n<em>dk)$，将所有key排列成矩阵$K(m</em>dk)$$，通过矩阵相乘完成内积后再除以$$\sqrt{d_k}$$做归一化，$$V$是value向量组成的矩阵。</p>
+
+
+<p>​        假设query、key向量的维度均为$ d_k $（可以对短的向量进行补零），在计算中为了运用并行计算提高效率，将所有query排列成矩阵$ Q(n<em>dk) $,将所有key排列成矩阵$ K(m</em>dk) $,通过矩阵相乘完成内积后再除以$ \sqrt{d_k} $做归一化,$ V $是value向量组成的矩阵。</p>
 <p>​        <strong>这里为什么要除以$\sqrt{d_k}$？</strong>因为当${d_k}$很大的时候，向量差异值算出来就会相对于较小的${d_k}$更大，那么softmax后就会使得两极分化很严重，比如一个分量很接近于1而其他分量很接近于0，这在训练初期是我们不想看到的，因为softmax最终会趋向于这样的结果，但是一开始就这样会导致梯度太小不好训练。如果$d_k$比较小，除不除都可以。</p>
 <center><img src=img/5.png alt="image-20220320102354510" style="zoom:67%;" /></center>
 
 <center>尺度点积计算图</center>
 
-<p>​        上图为transformer的计算图，可以发现多了一个<strong>Mask</strong>步骤，这一步是为了**<u>保证我们在t时刻不会看到t时刻以后的输入</u>**因此加上一个mask。具体来说就是在$QK$矩阵相乘得到$S$后，将$S_t$的$t$及以后的值都赋予一个很大的负值，使得他们SoftMax后就会变成0。</p>
+<p>​        上图为transformer的计算图，可以发现多了一个<strong>Mask</strong>步骤，这一步是为了<b><u>保证我们在t时刻不会看到t时刻以后的输入</u></b>因此加上一个mask。具体来说就是在$QK$矩阵相乘得到$S$后，将$S_t$的$t$及以后的值都赋予一个很大的负值，使得他们SoftMax后就会变成0。</p>
 <h4 id="2-3Multi-Head-Attention"><a href="#2-3Multi-Head-Attention" class="headerlink" title="2.3Multi-Head Attention"></a>2.3Multi-Head Attention</h4><p>​        <strong>多头注意力机制</strong>就是把Q、K、V通过线性映射，映射到多个低维空间，做多个尺度点积后拼合起来再用线性映射回输出。</p>
 <center><img src=img/6.png alt="image-20220320103522217" style="zoom:67%;" /></center>
 
 <center>多头注意力计算图
 
 
-<p>​        为什么要这么做？首先可以发现在上文的尺度点积过程中，&#x3D;&#x3D;我们几乎是没有可以学习的参数的&#x3D;&#x3D;。而在实际中，在不同情况下可能对query和key有不同的相似度计算方法。我的理解，比如在上文“我喜欢玩悠悠球”中，我们学到“play”是一个动词，因此可能在将动词作为特征时给它更大的权重；但是在“我们观看了一场演奏（play）”中，play是作为名词，因此需要不同的特征映射。<strong>多头注意力机制就为我们提供了一个类似于多通道卷积的注意力机制</strong>。</p>
+<p>​        为什么要这么做？首先可以发现在上文的尺度点积过程中，<b>我们几乎是没有可以学习的参数的。</b>而在实际中，在不同情况下可能对query和key有不同的相似度计算方法。我的理解，比如在上文“我喜欢玩悠悠球”中，我们学到“play”是一个动词，因此可能在将动词作为特征时给它更大的权重；但是在“我们观看了一场演奏（play）”中，play是作为名词，因此需要不同的特征映射。<b>多头注意力机制就为我们提供了一个类似于多通道卷积的注意力机制。</b></p>
 <h4 id="2-4transformer的注意力机制"><a href="#2-4transformer的注意力机制" class="headerlink" title="2.4transformer的注意力机制"></a>2.4transformer的注意力机制</h4><p>​        transformer中的注意力机制主要有以下不同：</p>
 <ul>
-<li><p>mask</p>
-<center><img src=img/7.png alt="image-20220320110149788" style="zoom:67%;" /></center></li>
+<li><strong>mask</strong></li>
 </ul>
+<center><img src=img/7.png alt="image-20220320110149788" style="zoom:67%;" /></center>
+
 <p>在输入中多头注意力没有加mask，使得编码器可以看到所有输入；而在输出的自回归中， mask使得解码器只能看到当前时刻及以前的输入。</p>
 <ul>
-<li><p>自注意力机制</p>
-<center><img src=img/8.png alt="image-20220320110326906" style="zoom:67%;" /></center></li>
+<li><strong>自注意力机制</strong></li>
 </ul>
+<center><img src=img/8.png alt="image-20220320110326906" style="zoom:67%;" /></center>
+
 <p>输入的多头注意力机制的Q、K、V均为Input，这样输出其实就是Input的加权，并且自身向量的相关性最高权重最大，其余向量相关性越高权重越大。这样就把Input的相关度较高的向量集合在一起。</p>
 <ul>
-<li><p>解码器</p>
+<li><strong>解码器</strong></li>
+</ul>
 <center><img src=img/9.png alt="image-20220320110849583" style="zoom:67%;" /></center>
 
 <p>这里把t-1的Output作为query，编码器输出作为K、V，即t的输出是根据t-1和K的相关度得到的权重对V进行的加权。</p>
-</li>
-</ul>
 <hr>
 <h3 id="3-位置编码"><a href="#3-位置编码" class="headerlink" title="3.位置编码"></a>3.位置编码</h3><h4 id="3-1为什么需要位置编码？"><a href="#3-1为什么需要位置编码？" class="headerlink" title="3.1为什么需要位置编码？"></a>3.1为什么需要位置编码？</h4><p>​        经过上边的讲解我们可以看出来，transformer作为一种纯注意力网络，其多头注意力的输出是输入的加权和，但是对于序列的时序信息是没有反映的。这对于序列数据来说丢失了很大一部分信息，因此我们要把位置信息耦合到输入中。</p>
 <p>​        一个简单的想法是线性步长定区间，比如给输入的每一个单词分配一个$[0,1]$的标号，0是第一个单词的标号，1是最后一个单词的标号。这样导致的问题就是由于你不知道你的输入有多长，因此标号间的步长不是一个常数。另一个方法是线性步长定步长，即从1开始给输入单词分配步长，这样会使得序列标号值可能会很大，而且测试过程中可能会遇到没有训练过的标号值（过长或中间值）。</p>
@@ -225,8 +226,8 @@
 
 <center>The 128-dimensional positonal encoding for a sentence with the maximum lenght of 50. Each row represents the embedding vector </center>
 
-<h4 id="3-3正弦编码的线性性质"><a href="#3-3正弦编码的线性性质" class="headerlink" title="3.3正弦编码的线性性质"></a>3.3正弦编码的线性性质</h4><p>​        正弦编码的一个好的性质是对于$p_{t+k}$的位置信息，当k确定时，可以表示成与k有关的$p_t$的线性函数，即：<br>$$<br>p_{t+k}&#x3D;T^Kp_t<br>$$<br>证明只要找到矩阵$T^k$即可。$T^k$的形式如下：<br>$$<br>T^k&#x3D;\left[<br>\begin{matrix}<br>    \Phi_1^k &amp; 0&amp;… &amp; 0\<br>    0 &amp; \Phi_2^k &amp; …&amp; 0\<br>    0&amp;0&amp;…&amp;0\<br>    0&amp; 0&amp; 0&amp;\Phi_{\frac{d}{2}}<br>    \end{matrix}<br>    \right ]<br>$$<br> 其中，<br>$$<br>\Phi_i^k&#x3D;\left[<br>\begin{matrix}<br> cos(w_ik)&amp;sin(w_ik)\<br> -sin(w_ik)&amp;cos(w_ik)<br>\end{matrix}<br>\right]<br>$$<br>这样在网络在学习过程中，用线性关系即可表征不同位置的输入间的相对关系。</p>
-<h4 id="3-4为什么直接相加？"><a href="#3-4为什么直接相加？" class="headerlink" title="3.4为什么直接相加？"></a>3.4为什么直接相加？</h4><p>​        在网络结构图中我们可以看到位置编码与输入直接相加进了多头注意力机制中（二者拥有相同长度的维度）。从直觉来说，我们一般会使用concat而不是直接相加来保留更多的信息。这里我没有找到合理的理论解释，但是上边那篇博客的思维很好：**<u>我们不应该去想相加有什么优势，而是相加有没有劣势。</u><strong>从3.2部分的位置向量图中可以看到</strong>只有在低维度中存在着有效的位置信息，而在高维度位置分量的值基本只有0和1**。那么可以认为网络在学习过程中会用较高的维度来保存内容信息；而用较少的低纬度来保存相对位置信息。</p>
+<h4 id="3-3正弦编码的线性性质"><a href="#3-3正弦编码的线性性质" class="headerlink" title="3.3正弦编码的线性性质"></a>3.3正弦编码的线性性质</h4><p>​        正弦编码的一个好的性质是对于$p_{t+k}$的位置信息，当k确定时，可以表示成与k有关的$p_t$的线性函数，即：<br>$$<br>p_{t+k}&#x3D;T^Kp_t<br>$$<br>证明只要找到矩阵$T^k$即可。$T^k$的形式如下：<br>$$<br>T^k&#x3D;\left[<br>\begin{matrix}<br>    \Phi_1^k &amp; 0&amp;… &amp; 0\<br>    0 &amp; \Phi_2^k &amp; …&amp; 0\<br>    0&amp;0&amp;…&amp;0\<br>    0&amp; 0&amp; 0&amp;\Phi_{\frac{d}{2}}<br>    \end{matrix}<br>    \right ]<br>$$<br>其中，<br>$$<br>\Phi_i^k&#x3D;\left[<br>\begin{matrix}<br> cos(w_ik)&amp;sin(w_ik)\<br> -sin(w_ik)&amp;cos(w_ik)<br>\end{matrix}<br>\right]<br>$$<br>这样在网络在学习过程中，用线性关系即可表征不同位置的输入间的相对关系。</p>
+<h4 id="3-4为什么直接相加？"><a href="#3-4为什么直接相加？" class="headerlink" title="3.4为什么直接相加？"></a>3.4为什么直接相加？</h4><p>​        在网络结构图中我们可以看到位置编码与输入直接相加进了多头注意力机制中（二者拥有相同长度的维度）。从直觉来说，我们一般会使用concat而不是直接相加来保留更多的信息。这里我没有找到合理的理论解释，但是上边那篇博客的思维很好：<u>我们不应该去想相加有什么优势，而是相加有没有劣势。</u><b>从3.2部分的位置向量图中可以看到只有在低维度中存在着有效的位置信息，而在高维度位置分量的值基本只有0和1</b>。那么可以认为网络在学习过程中会用较高的维度来保存内容信息；而用较少的低纬度来保存相对位置信息。</p>
 <hr>
 <h3 id="4-参考文献"><a href="#4-参考文献" class="headerlink" title="4.参考文献"></a>4.参考文献</h3><ul>
 <li><p>Ashish Vaswani, Noam Shazeer, Niki Parmar,Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin.Attention Is All You Need. <strong><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1706.03762v5">arXiv:1706.03762v5</a></strong></p>
