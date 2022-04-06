@@ -141,60 +141,56 @@
 </nav>
 
         <div id="main" >
-            <div class ="post_page_title_img" style="height: 25rem;background-image: url(img/back-PSMNet.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
-                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >PSMNet</h2></a>
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(img/back_vit.png);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >Vit and CCT</h2></a>
             </div>
             <!-- Post -->
             <div class="typo" style="padding: 3rem;">
-                <h2 id="Pyramid-Stereo-Matching-Network"><a href="#Pyramid-Stereo-Matching-Network" class="headerlink" title="Pyramid Stereo Matching Network"></a>Pyramid Stereo Matching Network</h2><h3 id="PSMNet"><a href="#PSMNet" class="headerlink" title="PSMNet"></a>PSMNet</h3><hr>
-<h4 id="1-Intros"><a href="#1-Intros" class="headerlink" title="1.Intros"></a>1.Intros</h4><p>比较早期的一个双目匹配网络，传统方法利用连续性等约束无法在一些病态区域（遮挡、无纹理等）做到精确配准，因此本文提出了一种利用上下文信息的网络结构。首先，利用空洞卷积扩大了网络的感受域，并用金字塔池化层融合不同尺度上。最后用<strong>stacked hourglass</strong>结构进行正则化以及中间自监督机制得到结果。</p>
-<hr>
-<h4 id="2-A-Few-Points"><a href="#2-A-Few-Points" class="headerlink" title="2.A Few Points"></a>2.A Few Points</h4><h5 id="2-1空间金字塔池化的思想"><a href="#2-1空间金字塔池化的思想" class="headerlink" title="2.1空间金字塔池化的思想"></a>2.1空间金字塔池化的思想</h5><p>我觉得这一步主要有两个操作，一是空洞卷积，扩大池化层的感受域；而是先通过下采样得到不同分辨率的特征，再通过上采样把它们叠在一起。</p>
-<blockquote>
-<p>感受域其实就是一层网络输出里每一个格子对应的原图上的范围，比如原图上每一个像素的感受域就是一个像素，而对图像采用2*2的普通卷积，那么输出的每一个像素就对应原图2*2大小的范围。因此空洞卷积就能扩大输出的感受域。</p>
+                <h2 id="Vision-Transformer-Compact-Convolutional-Transformer"><a href="#Vision-Transformer-Compact-Convolutional-Transformer" class="headerlink" title="Vision Transformer+Compact Convolutional Transformer"></a>Vision Transformer+Compact Convolutional Transformer</h2><hr>
+<h3 id="1-ViT"><a href="#1-ViT" class="headerlink" title="1.ViT"></a>1.ViT</h3><blockquote>
+<p>尽管transformer在自然语言处理中已经成为了标准方法，但它在计算机视觉领域中只是作为CNN的辅助。本文提出了transformer在cv领域的应用对CNN的依赖是没有必要的，纯transformer网络来解决图片分类问题，当在一个大数据集上进行预训练后，取得了不错的效果并且减少了计算资源的使用（？2500天TPU天数）。</p>
 </blockquote>
-<h5 id="2-2stacked-hourglass结构"><a href="#2-2stacked-hourglass结构" class="headerlink" title="2.2stacked hourglass结构"></a>2.2stacked hourglass结构</h5><p>这一步有点像是在不同分辨率下的残差网络。原文中对比了直接使用残差网络和这一结构的效果，直接使用残差网络的效果远不如stacked hourglass结构。这个结构由连续三个不同分辨率下的残差网络构成，如下图。</p>
-<p><img src="1.png" alt=""></p>
-<p>在训练阶段，每一个部分都会输出一个视差的结果用于中间的监督训练。训练的loss由三个视差输出的加权得到。</p>
-<h5 id="2-3cost-volumn的理解"><a href="#2-3cost-volumn的理解" class="headerlink" title="2.3cost volumn的理解"></a>2.3cost volumn的理解</h5><p>之前在看立体综述那个ppt和其他论文的时候对<strong>cost volumn</strong>一直不太理解，这一次复现的时候通过编程才知道了其含义。从数学形式上，它是一个四维的张量，大小为H*W*D<em>S(S为特征数\</em>2)，它通过将特征图平移，得到了不同视差下特征对应的张量。比如在d=0这一维，即原左图和右图位置直接一一对应，因此分别将左图的特征填入d=0,s=0~S/2这一维，将右图填入d=0,s=S/2+1~S这一维；在d=1这一维，则左图特征填入位置不变，右图填入位置向右平移一个单位，空余位置补0.</p>
-<h5 id="2-4多通道卷积和三维卷积的理解"><a href="#2-4多通道卷积和三维卷积的理解" class="headerlink" title="2.4多通道卷积和三维卷积的理解"></a>2.4多通道卷积和三维卷积的理解</h5><p>之前一直比较疑惑多通道卷积和三维卷积的区别，因为从计算方式和卷积核的大小上来看它们是相似的。经过越哥的讲解以后才知道卷积的维数不取决于它的卷积核的通道数，而是它在<strong><u>滑动过程中有几个自由度</u></strong>，比如RGB图像的二维卷积的卷积核虽然有三个通道，但它只能在H和W方向上滑动，在C方向上其通道数就等于图像通道数，无法滑动，因此只有两个自由度；而若在一段RGB视频的图像序列上，三通道卷积核会在C方向上滑动检测一些例如运动方面的信息，这就是三维卷积。</p>
+<h4 id="1-1Introduction"><a href="#1-1Introduction" class="headerlink" title="1.1Introduction"></a>1.1Introduction</h4><p>自注意力模型是NLP中最常用的模型，目前最常用的方法是先在一个大数据集上训练，再在一个具体的小数据集上修改。由于Transformer的运算高效，使得网络结构可以变得很大，而且有趣的是在数据集和模型增长的过程中不会出现饱和的情况。</p>
+<p>对于长度为$N$的序列，Transformer的计算复杂度是$O(n^2)$，所以在NLP中，由于句子长度比较短（e.g.$N&#x3D;512$），Transformer是可行的，但对于整个图片(e.g.$N&#x3D;224*224$)，复杂度就很可怕。在以前的工作中，有人试过对图片的H、W维分别进行Transformer，<strong>而本文则将图片分成更小的Patch从而直接使用标准Transfomer，就像把图片看成句子，每个Patch看成句子里的单词。</strong>由于Transformer存在位置编码，因此缺少局部特性、平移不变性等特性，导致在中等数据集上表现得不如CNN，而在大数据集上则取得了很不错的效果。</p>
+<center><img src="img/1.png" style="zoom:80%;" />
+
+<center>Figure 1:ViT Model overview</center>
+
+<h4 id="1-2Method"><a href="#1-2Method" class="headerlink" title="1.2Method"></a>1.2Method</h4><p>对于一个图片$ x\epsilon R^{H<em>W</em>C} $，将其分成patch的序列$x_p\epsilon R^{N*（P^2C）}$，$P$是Patch的大小，因此：<br>$$<br>N&#x3D;\frac{HW}{P^2}<br>$$<br>由此得到图像的Patch Embedding.。</p>
+<p>借鉴<strong>BERT</strong>的分类token，在输入的序列前加一个可学习的分类token，最终对该token的输出加一个MLP分类得到图像分类。在Position embeding方面，作者采用了BERT中的1D编码，也采用了2D编码或者相对位置编码，<strong>最终得到的结果都差不多</strong>。可能是因为图片Patch已经比较大了，因此对它们的排列顺序对结果不会产生太大的影响，比如把一个图片分两个Patch，那么调换Patch的位置对其分类结果影响不大。网络的计算过程如下：</p>
+<center><img src="img/2.png" alt="image-20220406152329849" style="zoom:100%;" /></center>
+
 <hr>
-<h4 id="3-复现结果"><a href="#3-复现结果" class="headerlink" title="3.复现结果"></a>3.复现结果</h4><p>我在复现时，由于电脑比较拉，所以把输入的分辨率调小为原文的一半，数据集也只采用了SceneFlow的Monkaka数据集，得到的结果不理想。训练的loss如下：</p>
-<p><img src="2.png" alt=""></p>
-<p>最终loss收敛于10左右，而在测试时loss大概在40-60，匹配结果只有在一些很明显的边沿才能看到一些。根据我的推测是因为当输入分辨率过小时，图像由于尺寸问题无法学习到上下文信息，并且训练集样本量也较少（只有3000）导致匹配的误差很大。</p>
-<p>最后使用原文预训练好的模型测试了一下，loss为0.65，定性图如下：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th><img src="3.png" alt=""></th>
-<th><img src="4.png" alt=""></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>结果看上去不错，但是对于大头照会错的比较离谱（可能是因为Monkaka皮肤太好没什么纹理的缘故？）：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th><img src="5.png" alt=""></th>
-<th><img src="6.png" alt=""></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>另外，还踩了个坑，把tensor转PIL图像的时候记得乘以255，否则结果显示出来就会有很多毛刺。</p>
+<h3 id="2-CCT"><a href="#2-CCT" class="headerlink" title="2.CCT"></a>2.CCT</h3><blockquote>
+<p>ViT由于需要在大数据集上进行预训练才能取得不错的效果，因此被认为不适用于小数据集。本文通过一种序列池化策略消除了class token和position embedding的使用，并且第一次证明了Transformer可以在小数据集上被使用，并且在大数据集上也可以被使用。</p>
+</blockquote>
+<h4 id="2-1Introduction"><a href="#2-1Introduction" class="headerlink" title="2.1Introduction"></a>2.1Introduction</h4><p>在一些研究领域比如医疗图像，它们的数据集是非常少的并且可能很难基于正确的label，并且很多研究人员可能不具有大量的运算资源，因此transformer这样的自注意力机制模型的良好的全局信息搜索能力可以较好的处理这些领域的问题，并且降低研究的门槛。但ViT这样的<strong>“贵物”</strong>需要很大的数据集来喂，因此本文想提出适用于小数据集的Transformer.</p>
+<p>本文的工作试图填补CNN和Transformer之间的隔阂，在提取到较好的图像特征的同时满足移位不变性（spitial invariant），并且可以进行权重共享。<b>文章会先介绍更小的Vit结构——Vit-Lite，再此基础上利用序列池化来构建Compact Vision Transformer（CVT），最后引入卷积块得到Compact Convolutional Transformer（CCT）</b>。最终在取得不错的识别效果的同时极大地减少了网络的大小。</p>
+<p>总而言之，本文的贡献为：</p>
+<ol>
+<li>介绍了Vit-Lite打破了ViT的“数据饕餮”的看法，可以在小数据集上进行训练。</li>
+<li>介绍了CVT来移除了ViT中class token的使用，并且提升了精确度。</li>
+<li>介绍了CCT提升了输入图片大小的灵活度并且弱化了位置编码的影响。</li>
+</ol>
+<center><img src="img/3.png" alt="image-20220406200907211" style="zoom:100%;" /></center>
+
+<center>Figure 2:Three Model Overview</center>
+
+<h4 id="2-2Method"><a href="#2-2Method" class="headerlink" title="2.2Method"></a>2.2Method</h4><h5 id="2-2-1卷积块"><a href="#2-2-1卷积块" class="headerlink" title="2.2.1卷积块"></a>2.2.1卷积块</h5><p>CCT结构中用卷积代替了Patch划分来生成token：<br>$$<br>x_0&#x3D;MaxPool(ReLU(Conv2d(x)))<br>$$<br>即对输入图像进行卷积-&gt;ReLu激活-&gt;池化，在前几个卷积块中，卷积核的个数为64，最后一个卷积块的卷积核个数为Embedding的维数$d$。这样最终得到的图像为$x\epsilon R^{H_n<em>W_n</em>d}$，最终的序列长度即为$H_n*W_n$。这样的操作的好处是：</p>
+<ol>
+<li>不再要求输入的图片大小是Patch的整数倍。</li>
+<li><b>利用卷积操作得到的特征原本就保存了一些图片的空间特征，因此即使没有进行Position Embedding也能保留图片的局部信息，</b>这就弱化了Position Embedding的影响。</li>
+</ol>
+<h5 id="2-2-2序列池化"><a href="#2-2-2序列池化" class="headerlink" title="2.2.2序列池化"></a>2.2.2序列池化</h5><p>为了去除class taken，文章对经过Transformer后的输出在每一维上对所有数据进行了池化，再用池化后的数据进行分类。具体的池化步骤是：</p>
+<ol>
+<li><p>假设Transformer的输出数据是：<br>$$<br>X_L&#x3D;f(x_0)\epsilon R^{b<em>n</em>d}<br>$$<br>b是batch的大小，n是序列长度（$H_n*W_n$）,d是Embedding的长度。</p>
+</li>
+<li><p>在d的每一维上进行softmax：<br>$$<br>X_L’&#x3D;softmax(g(x_L)^T)\epsilon R^{b<em>1</em>n}<br>$$</p>
+</li>
+<li><p>计算输出：<br>$$<br>z&#x3D;X_L’X_L<br>$$</p>
+</li>
+</ol>
+<p>这一操作相当于给序列的输入以不同的重要性权重，并由此得到输出，即每一个特征中（总共有d个特征）取最明显的特征来决定输出。</p>
 
             </div>
 
@@ -257,8 +253,8 @@ $('.btn_click_load').click(function() {
 -->
 <script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = 'http://example.com/2022/02/19/PSMNet/';  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = 'http://example.com/2022/02/19/PSMNet/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = 'http://example.com/2022/04/07/Vit-and-CCT/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://example.com/2022/04/07/Vit-and-CCT/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
 </script>
 
