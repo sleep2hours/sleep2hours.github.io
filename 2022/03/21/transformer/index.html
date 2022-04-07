@@ -34,26 +34,6 @@
 
 			    
   
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script async type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  
 
 
     <script src="/js/jquery.min.js"></script>
@@ -63,7 +43,11 @@
     <script src="/js/util.js"></script>
     <script src="/js/main.js"></script>
 	
-<meta name="generator" content="Hexo 5.4.0"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
     
 		
 <!-- Layouts -->
@@ -187,26 +171,19 @@
 <h4 id="2-3Multi-Head-Attention"><a href="#2-3Multi-Head-Attention" class="headerlink" title="2.3Multi-Head Attention"></a>2.3Multi-Head Attention</h4><p>​        <strong>多头注意力机制</strong>就是把Q、K、V通过线性映射，映射到多个低维空间，做多个尺度点积后拼合起来再用线性映射回输出。</p>
 <center><img src=img/6.png alt="image-20220320103522217" style="zoom:67%;" /></center>
 
-<center>多头注意力计算图
-
+<center>多头注意力计算图</center>
 
 <p>​        为什么要这么做？首先可以发现在上文的尺度点积过程中，<b>我们几乎是没有可以学习的参数的。</b>而在实际中，在不同情况下可能对query和key有不同的相似度计算方法。我的理解，比如在上文“我喜欢玩悠悠球”中，我们学到“play”是一个动词，因此可能在将动词作为特征时给它更大的权重；但是在“我们观看了一场演奏（play）”中，play是作为名词，因此需要不同的特征映射。<b>多头注意力机制就为我们提供了一个类似于多通道卷积的注意力机制。</b></p>
-<h4 id="2-4transformer的注意力机制"><a href="#2-4transformer的注意力机制" class="headerlink" title="2.4transformer的注意力机制"></a>2.4transformer的注意力机制</h4><p>​        transformer中的注意力机制主要有以下不同：</p>
-<ul>
-<li><strong>mask</strong></li>
-</ul>
+<h4 id="2-4transformer的注意力机制"><a href="#2-4transformer的注意力机制" class="headerlink" title="2.4transformer的注意力机制"></a>2.4transformer的注意力机制</h4><p>transformer中的注意力机制主要有以下不同：</p>
+<p>1.mask</p>
 <center><img src=img/7.png alt="image-20220320110149788" style="zoom:67%;" /></center>
 
 <p>在输入中多头注意力没有加mask，使得编码器可以看到所有输入；而在输出的自回归中， mask使得解码器只能看到当前时刻及以前的输入。</p>
-<ul>
-<li><strong>自注意力机制</strong></li>
-</ul>
+<p>2.自注意力机制</p>
 <center><img src=img/8.png alt="image-20220320110326906" style="zoom:67%;" /></center>
 
 <p>输入的多头注意力机制的Q、K、V均为Input，这样输出其实就是Input的加权，并且自身向量的相关性最高权重最大，其余向量相关性越高权重越大。这样就把Input的相关度较高的向量集合在一起。</p>
-<ul>
-<li><strong>解码器</strong></li>
-</ul>
+<p>3.解码器</p>
 <center><img src=img/9.png alt="image-20220320110849583" style="zoom:67%;" /></center>
 
 <p>这里把t-1的Output作为query，编码器输出作为K、V，即t的输出是根据t-1和K的相关度得到的权重对V进行的加权。</p>
