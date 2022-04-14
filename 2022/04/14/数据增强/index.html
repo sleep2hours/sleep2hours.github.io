@@ -125,77 +125,87 @@
 </nav>
 
         <div id="main" >
-            <div class ="post_page_title_img" style="height: 25rem;background-image: url(img/jiaofu.png);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
-                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >元胞自动机</h2></a>
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(img/back_aug.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >数据增强</h2></a>
             </div>
             <!-- Post -->
             <div class="typo" style="padding: 3rem;">
-                <h1 id="元胞自动机"><a href="#元胞自动机" class="headerlink" title="元胞自动机"></a>元胞自动机</h1><h2 id="1-是什么？"><a href="#1-是什么？" class="headerlink" title="1.是什么？"></a>1.是什么？</h2><blockquote>
-<p><strong>元胞自动机</strong>(Cellular automaton)，是一种离散模型。它是由无限个有规律、坚硬的方格组成，每格均处于一种有限状态。整个格网可以是任意有限维的。每格在t时刻的状态由t-1时刻该格的邻域决定，且演变时所有格子遵从统一规律。</p>
-<p>​                                                                                                                                                                        ——google</p>
-</blockquote>
-<p>简而言之，元胞自动机就是一个个排列紧密的<strong>刚体</strong>小格子，它们主要有以下特征：</p>
-<ul>
-<li><strong>同时性+马尔可夫性：</strong>所有格子同时变化且这一时刻的状态只与上一时刻有关而与之前的状态无关。</li>
-<li><strong>局部性：</strong>某一格子状态的变化只与其邻域有关。</li>
-<li><strong>一致性：</strong>所有元胞的变化规则相同。</li>
-<li><strong>离散性：</strong>元胞演变的时间是离散的，元胞在“元胞空间”上也是离散的。</li>
-</ul>
-<p>因此，一个标准的元胞自动机$A$组成的数学表达式如下：</p>
-<p>$A&#x3D;(L,d,S,N,f)$</p>
-<p>其中，$L$是元胞空间，$d$是元胞空间的维数，$S$是元胞的状态集合，$N$是一个元胞的邻域，$f$​是元胞的演变规则。</p>
-<h2 id="2-怎么用？"><a href="#2-怎么用？" class="headerlink" title="2.怎么用？"></a>2.怎么用？</h2><h3 id="2-1适用的问题"><a href="#2-1适用的问题" class="headerlink" title="2.1适用的问题"></a>2.1适用的问题</h3><p>对一复杂系统的离散时间变化分析时，可利用元胞自动机将其离散化、单元化，通过研究每一元胞的变化，并进行<strong>计算机仿真</strong>，最终得到系统整体的变化情况。</p>
-<h3 id="2-2使用步骤"><a href="#2-2使用步骤" class="headerlink" title="2.2使用步骤"></a>2.2使用步骤</h3><p><strong>划分元胞</strong>$\rightarrow$划分时间$\rightarrow$<strong>确定状态</strong>$\rightarrow$确定邻域$\rightarrow$​<strong>规定演变规律(物理公式、实际规律etc)</strong></p>
-<h3 id="2-3举个例子"><a href="#2-3举个例子" class="headerlink" title="2.3举个例子"></a>2.3举个例子</h3><center><img src="img/1.png" style="zoom:100%;" /></center>
-
-<p>由于题目中缺少司机在从机场接客到市区过程中空载时间（比例）的数据，我利用元胞自动机进行了计算机仿真后得到了一个平均空载时间时间。</p>
-<h4 id="2-3-1划分元胞"><a href="#2-3-1划分元胞" class="headerlink" title="2.3.1划分元胞"></a>2.3.1划分元胞</h4><p>以机场和城市中心连线为中线，将包含机场和城市中心的一定范围内的地图划分成二维网格，组成二维的元胞空间。</p>
-<h4 id="2-3-2划分时间"><a href="#2-3-2划分时间" class="headerlink" title="2.3.2划分时间"></a>2.3.2划分时间</h4><p>用离散的迭代次数来代表实际中的一小段时间，这里以<strong>机场和城市中心间的距离</strong>除以出租车的<strong>平均速度</strong>得到出租车从机场到城市中心的<strong>直达时间</strong>，再用该时间除以二者之间的元胞数即可作为元胞演变所代表的单位时间。</p>
-<h4 id="2-3-3确定状态"><a href="#2-3-3确定状态" class="headerlink" title="2.3.3确定状态"></a>2.3.3确定状态</h4><ul>
-<li>每个元胞有无出租车</li>
-<li>每个元胞有无订单</li>
-</ul>
-<h4 id="2-3-4确定邻域"><a href="#2-3-4确定邻域" class="headerlink" title="2.3.4确定邻域"></a>2.3.4确定邻域</h4><p>邻域为所有<strong>有相邻边的格子们。</strong></p>
-<h4 id="2-3-5规定演变规律"><a href="#2-3-5规定演变规律" class="headerlink" title="2.3.5规定演变规律"></a>2.3.5规定演变规律</h4><ol>
-<li><p><strong>出租车初始化：</strong>在机场外围随机生成出租车的位置。</p>
-</li>
-<li><p><strong>市区订单初始化：</strong>参考<strong>无向距离场</strong>（Distance Field）的概念，将订单概率分布看作是市中心的距离场，即对整个地区进行网格划分，机场禁区内的网格订单产生概率为零，机场禁区外的网格订单产生概率与到市中心的距离成反比。</p>
-<center><img src="img/2.png" style="zoom:150%;" /></center>
-
-<p>在此基础上随机生成订单。</p>
-</li>
-</ol>
-<p>一次随机生成的结果如下：</p>
-<center><img src="img/3.png" style="zoom:150%;" /></center>
-
-<center>红点代表出租车，白点代表订单</center>
-
-<ol start="3">
-<li><strong>出租车的移动策略：</strong><ul>
-<li>当出租车载客时，则其每次在x\y方向上随机移动一个格子。</li>
-<li>当出租车空载时，则倾向于向着市中心随即移动，即移动方向与和市中心连线方向的夹角为锐角。</li>
-</ul>
-</li>
-</ol>
-<h4 id="2-3-6仿真结果"><a href="#2-3-6仿真结果" class="headerlink" title="2.3.6仿真结果"></a>2.3.6仿真结果</h4><table>
+                <h2 id="Augment"><a href="#Augment" class="headerlink" title="Augment"></a>Augment</h2><h3 id="1-mixup-BEYOND-EMPIRICAL-RISK-MINIMIZATION-ML-2017"><a href="#1-mixup-BEYOND-EMPIRICAL-RISK-MINIMIZATION-ML-2017" class="headerlink" title="1.mixup: BEYOND EMPIRICAL RISK MINIMIZATION(ML 2017)"></a>1.mixup: BEYOND EMPIRICAL RISK MINIMIZATION(ML 2017)</h3><h4 id="1-1Introduction"><a href="#1-1Introduction" class="headerlink" title="1.1Introduction"></a>1.1Introduction</h4><p>以往的模型在学习过程中使用的是ERM，即最小化所有训练数据的平均误差。但是这一方法的泛化能力很差，特别是在测试集的分布与训练集的分布不相同的时候，这时VRM就被提了出来——通过对数据的邻域建模来扩大训练集的分布，比如一张图像的平移、轻微旋转以及微小缩放都可以用来作为这张图像的邻域。将邻域加入到训练集中总而提高模型的泛化能力。但是VRM中图像的邻域和它本身都来自同一类别，对不同类别的图像间的相邻性没有建模。</p>
+<p>本文的贡献：在先验知识：数据（feature vectors）的线性组合会引起其目标（one-hot）的线性组合的假设下，引入了以下虚拟数据：<br>$$
+x'=\lambda x_i+(1-\lambda)x_j,其中x_i,x_j是输入向量 \\
+y'=\lambda y_i+(1-\lambda)y_j,其中y_i,y_j是one-hot label编码
+$$</p>
+<h4 id="1-2Method"><a href="#1-2Method" class="headerlink" title="1.2Method"></a>1.2Method</h4><p>1.<b>ERM</b>:</p>
+<p>在监督学习中，我们会假设输入$x$和标签$y$服从联合分布$P(x,y)$，然后用预测函数$f(x)$来逼近$P(x,y)$。逼近的方法就是最小化$f(x)$和$y$的差异。而最早关于$P(x,y)$的假设是狄拉克（冲激）函数：<br>$$
+P_\delta(x,y)=\frac{1}{n}\sum_{i=1}^{n}\delta(x=x_i,y=y_i)
+$$<br>即<b>每个输入对应一个输出，整个概率分布是一个个等高的尖峰</b>，这样学出来的东西相当于记住了以往训练集里输入了哪些东西，然后把预测值往这些峰上赶。这样的预测值的不确定性会比较离散，泛化能力差。</p>
+<p>2.<b>VRM:</b></p>
+<p>为了缓解ERM的尖峰，VRM将$P(x,y)$改为了：<br>$$
+P_v(x',y')=\frac{1}{n}\sum_{i=1}^{n}v(x',y'|x_i,y_i)
+$$<br>其中$v(x',y'|x_i,y_i)$是$x$的正态分布：<br>$$
+v(x',y'|x_i,y_i)=N(x'-x_i,\sigma^2)\delta(y'=y_i)
+$$<br>3.<b>mixup:</b></p>
+<p>mixup对输入数据和标签（<b>one-hot格式</b>）进行了如下操作：<br>$$
+x'=\lambda x_i+(1-\lambda)x_j \\
+y'=\lambda y_i+(1-\lambda)y_j
+$$<br>其中$\lambda$是从分布$Beta(\alpha,\alpha)$（$\alpha=1$时即为0-1的均匀分布）中采样而得，这样就降低了预测时不确定性的离散型，我参考论文中的图按自己的理解画出了三者的区别：</p>
+<div class="table-container">
+<table>
 <thead>
 <tr>
-<th><img src="/2022/01/29/%E5%85%83%E8%83%9E%E8%87%AA%E5%8A%A8%E6%9C%BA/img/3.png"></th>
-<th><img src="/2022/01/29/%E5%85%83%E8%83%9E%E8%87%AA%E5%8A%A8%E6%9C%BA/img/4.png"></th>
-<th><img src="/2022/01/29/%E5%85%83%E8%83%9E%E8%87%AA%E5%8A%A8%E6%9C%BA/img/5.png"></th>
+<th><img src="img/1.png" alt="image-20220414122717519" style="zoom:67%;" /></th>
+<th><img src="img/2.png" alt="image-20220414122727227" style="zoom:67%;" /></th>
+<th><img src="img/3.png" alt="image-20220414122734800" style="zoom:67%;" /></th>
 </tr>
 </thead>
+<tbody>
+<tr>
+<td>ERM</td>
+<td>VRM</td>
+<td>mixup</td>
+</tr>
+</tbody>
 </table>
-<center>如上图，红线为出租车空载行驶，绿线为出租车非空载行驶</center>
+</div>
+<p>此外文中提到了：</p>
+<ul>
+<li>其他的组合比如3-4个组合的输入或是其他更复杂的组合函数并没有提升实验表现反而增加了运算量。</li>
+<li>在同一个batch上操作而不是在整个数据集上并不会影响实验表现。</li>
+<li>在同一个标签中操作并不会比在不同的标签间进行耦合的效果更好。</li>
+<li>一般取$\lambda \epsilon[0.1,0.4]$再大会导致欠拟合，且在图像分类任务中中更大的网络和更长的训练过程效果会更好。</li>
+<li>小的权重衰减对mixup会更有用，并且标签平滑loss会降低方法的表现。</li>
+</ul>
+<hr>
+<h3 id="2-CutMix-CVPR-2019"><a href="#2-CutMix-CVPR-2019" class="headerlink" title="2.CutMix(CVPR 2019)"></a>2.CutMix(CVPR 2019)</h3><h4 id="2-1Introduction"><a href="#2-1Introduction" class="headerlink" title="2.1Introduction"></a>2.1Introduction</h4><p>在图像检测、图像分类任务中，卷积神经网络可能会缺少对低辨识度区域的关注，比如人的分类过程中，脸会比腿更加有辨识度，从而导致网络学习到的关于腿的特征更少。因此人们提出了很多数据增强或者正则化方法，比如<b>区域dropout、mixup</b>。</p>
+<p>区域Dropout是从输入图像中切去一块儿而用0或者高斯噪声来填充，这导致了输入中多出了许多对特征信息提取没有帮助的像素。而mixup在对输入图像进行加权的过程中，让很多地方变得不自然（比如下图中猫和狗头拼在一起）。因此本文在这两者的基础上提出了新的思路：在一张输入图像上挖去一部分，用另一张输入图像的对应部分来填充，这样就解决了区域dropout的信息缺失问题；同时按照图像拼接的比例来合成label，以此利用mixup在分类时对标签的平滑性。</p>
+<center><img src="img/4.png" alt="image-20220414132751492" style="zoom:80%;" /></center>
 
-<h2 id="3-论文表达要点"><a href="#3-论文表达要点" class="headerlink" title="3.论文表达要点"></a>3.论文表达要点</h2><ul>
-<li><p>状态如何划分：这里是最好配插图的地方，可以制作一些自定义地图、类似于<strong>我的世界</strong>那样的沙盒图等等。并且讲清楚为什么要这么划分（虽然很可能是你灵光乍现感觉出来的，但是…**<del>“我们这个状态划分的很好啊，它有多么好呢，它可以…”</del>**）</p>
+<center>Figure 1:三种方法的区别，图源原文</center>
+
+<h4 id="2-2Method"><a href="#2-2Method" class="headerlink" title="2.2Method"></a>2.2Method</h4><p>算法的具体实现方法如下：</p>
+<p>1.计算出一个0-1掩膜$M$,利用$M$来耦合同一个batch里的两张图像$x_A、x_B$：<br>$$
+x'=M\cdot x_A+(1-M)\cdot x_B
+\\
+y'=\lambda y_A+(1-\lambda y_B)
+$$<br>其中，$\lambda$和mixup中一样是取自$Beta(\alpha,\alpha)(\alpha=1)$。</p>
+<p>2.掩膜$M$的计算方法如下：</p>
+<ul>
+<li><p>计算出替换区域$B=(r_x,r_y,r_w,r_h)$，$r_x,r_y$为替换区域左上角坐标，$r_w,r_h$为替换区域的宽和高。</p>
+$$
+  r_x\epsilon Unif(0,W),r_y\epsilon Unif(0,H)
+  \\
+  r_w=W\sqrt{1-\lambda},r_h=H\sqrt{1-\lambda}
+  $$
+<p><b>这样取可以保证在不越界的情况下替换面积与总面积比等于标签比$1-\lambda$</b>。</p>
 </li>
-<li><p>规定演变规则：我觉得邻域划分可以写在这里，然后各种物理公式的推导、人为法则的建立等等可以写的详细一些。（**<del>“我们这个演化规则非常的合理啊，它有多么合理呢，它是基于…”</del>**）</p>
-</li>
-<li><p>结果的可视化</p>
+<li><p>在$M$中取$B$区域的值为0其他为1。</p>
 </li>
 </ul>
+<center><img src="img/5.png" alt="image-20220414141143990" style="zoom:80%;" /></center>
+
+<center>Figure 2:三个方法的特性总结，图源原文</center>
+
+<hr>
 
             </div>
 
@@ -258,8 +268,8 @@ $('.btn_click_load').click(function() {
 -->
 <script type="text/javascript">
     var disqus_config = function () {
-        this.page.url = 'http://example.com/2022/01/29/%E5%85%83%E8%83%9E%E8%87%AA%E5%8A%A8%E6%9C%BA/';  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = 'http://example.com/2022/01/29/%E5%85%83%E8%83%9E%E8%87%AA%E5%8A%A8%E6%9C%BA/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = 'http://example.com/2022/04/14/%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://example.com/2022/04/14/%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
 </script>
 
