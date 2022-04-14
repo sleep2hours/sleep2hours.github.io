@@ -150,8 +150,10 @@
 <center> Figure1. MAB</center>
 </li>
 <li><p>在MAB基础上定义<b>SAB(Set Attention Block)</b>:</p>
-<script type="math/tex; mode=display">
-SAB(X):=MAB(X,X)</script><center> <img src="img/2.png" alt="image-20220325162846363" style="zoom:100%;" />
+$$
+  SAB(X):=MAB(X,X)
+  $$
+<center> <img src="img/2.png" alt="image-20220325162846363" style="zoom:100%;" />
     <center>Figure2. SAB</center>
 
 
@@ -159,7 +161,7 @@ SAB(X):=MAB(X,X)</script><center> <img src="img/2.png" alt="image-20220325162846
 </ul>
 <p>  利用SAB可以提取到输入两两之间的关系，因此可以通过堆叠SAB来提取更多个输入之间的关系。但因为SAB的计算复杂度是$O(n^2)$，在堆叠过程中可能会有很高的计算代价，因此本文又提出了ISAB.</p>
 <ul>
-<li><strong>ISAB(Induced Set Attention Block)：</strong>将SAB中的query改成一个可学习的矩阵$I\epsilon R^{m<em>d}$，$I$被称为诱导点，其首先和$X$经过MAB提取到输入间的信息得到$H\epsilon R^{m</em>d}$，H再和X经过MAB得到输出。作者希望用$I$学到输入的全局特征。</li>
+<li><strong>ISAB(Induced Set Attention Block)：</strong>将SAB中的query改成一个可学习的矩阵$I\epsilon R^{m*d}$，$I$被称为诱导点，其首先和$X$经过MAB提取到输入间的信息得到$H\epsilon R^{m*d}$，H再和X经过MAB得到输出。作者希望用$I$学到输入的全局特征。</li>
 </ul>
 <center> <img src="img/3.png"></center>
     <center>Figure3. ISAB</center>
@@ -167,11 +169,12 @@ SAB(X):=MAB(X,X)</script><center> <img src="img/2.png" alt="image-20220325162846
 
 
 <p>可以看出，ISAB把运算复杂度降到了$O(nm)$，并且由于<b>多头注意力的输出是输入的加权线性组合，因此SAB和ISAB均具有排列不变性。</b></p>
-<h4 id="3-2多头注意力池化"><a href="#3-2多头注意力池化" class="headerlink" title="3.2多头注意力池化"></a>3.2多头注意力池化</h4><p>将特征$ Z\epsilon R^{n<em>d} $提取到以后，以往的工作在进行特征聚合的时候是通过平均池化或相加池化，这是<b>建立在特征的权重是相等的基础上的</b>。Set Transformer利用一个可学习的矩阵$S\epsilon R^{k</em>d}$来进行不同权重的特征聚合：</p>
-<script type="math/tex; mode=display">
-PMA_k(Z)=MAB(S,rFF(Z))</script><p>$rFF$就是普通的前向传递，并且根据实验（<del>魔法来咯</del>）在代价聚合后对其结果再进行自注意力会得到更好的结果：</p>
-<script type="math/tex; mode=display">
-H=SAB(PMA_k(Z))</script><h4 id="3-3结构总览"><a href="#3-3结构总览" class="headerlink" title="3.3结构总览"></a>3.3结构总览</h4><p>Set Transformer的结构由编码器和解码器组成，编码器就是SAB或者ISAB的堆叠，ISAB拥有更低的运算复杂度；解码器就是对编码器得到的特征进行聚合后再经由自注意力得到输出。</p>
+<h4 id="3-2多头注意力池化"><a href="#3-2多头注意力池化" class="headerlink" title="3.2多头注意力池化"></a>3.2多头注意力池化</h4><p>将特征$ Z\epsilon R^{n*d} $提取到以后，以往的工作在进行特征聚合的时候是通过平均池化或相加池化，这是<b>建立在特征的权重是相等的基础上的</b>。Set Transformer利用一个可学习的矩阵$S\epsilon R^{k*d}$来进行不同权重的特征聚合：<br>$$
+PMA_k(Z)=MAB(S,rFF(Z))
+$$<br>$rFF$就是普通的前向传递，并且根据实验（<del>魔法来咯</del>）在代价聚合后对其结果再进行自注意力会得到更好的结果：<br>$$
+H=SAB(PMA_k(Z))
+$$</p>
+<h4 id="3-3结构总览"><a href="#3-3结构总览" class="headerlink" title="3.3结构总览"></a>3.3结构总览</h4><p>Set Transformer的结构由编码器和解码器组成，编码器就是SAB或者ISAB的堆叠，ISAB拥有更低的运算复杂度；解码器就是对编码器得到的特征进行聚合后再经由自注意力得到输出。</p>
 <center><img src="img/4.png"></center>
 <center>Figure4. overview</center> 
 

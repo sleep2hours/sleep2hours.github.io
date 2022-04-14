@@ -135,24 +135,24 @@
 <center><img src=img/1.png alt="image-20220316095317214" style="zoom:67%;" /></center>
 
 <center>model architecture</center>
+
 </blockquote>
 <hr>
 <h3 id="1-Encoder-Decoder"><a href="#1-Encoder-Decoder" class="headerlink" title="1.Encoder-Decoder"></a>1.Encoder-Decoder</h3><h4 id="1-1Encoder-Decoder-Seq2Seq模型"><a href="#1-1Encoder-Decoder-Seq2Seq模型" class="headerlink" title="1.1Encoder-Decoder Seq2Seq模型"></a>1.1Encoder-Decoder Seq2Seq模型</h4><p>​        <strong>Encoder-Decoder  Seq2Seq</strong>是对早期的RNN的增强。早期的RNN一个单元由一个输入、一个状态输入、一个状态输出和一个输出组成，由此可见，输入序列的长度应该与输出序列长度保持一致。然而在实际问题中这一点常常是不满足的，比如汉译英的时候“你怎么样?”-&gt;”How are you?”前者有四个字而后者只有三个。因此需要一种新的结构来把一定长度的序列映射成另一种长度不同的序列，即<strong>encoder-decoder</strong>模型。</p>
 <center><img src=img/2.png alt="image-20220316091541736" style="zoom:50%;" /></center>
 
 <p>​        <strong>encoder</strong>结构其实就是一系列咩有输出的RNN单元，最终生成中间向量<strong>encoder vector</strong>；而<strong>decoder</strong>结构将encoder vector以及decoder自身的上一级输出（自回归）作为输入。最终就完成了不同长度序列的映射。当然这只是最基础的结构，单纯一个<strong>encoder vector</strong>是无法把输入的所有信息保存下来的，因此需要进一步的提升比如注意力机制。<strong>注意解码器的输出是自回归的（串行），要一个一个来。</strong>Transformer就是基于编码器解码器结构的。</p>
-<h4 id="1-2transformer的编码解码器"><a href="#1-2transformer的编码解码器" class="headerlink" title="1.2transformer的编码解码器"></a>1.2transformer的编码解码器</h4><ul><li>encoder组成结构为两个子层：一个多头注意力一个全连接层，每个子层会经过残差相加后进入LayerNorm，即</li><ul>
-
-<p>$$<br>LayerNorm(x+Sublayer(x))<br>$$</p>
+<h4 id="1-2transformer的编码解码器"><a href="#1-2transformer的编码解码器" class="headerlink" title="1.2transformer的编码解码器"></a>1.2transformer的编码解码器</h4><p><ul><li>encoder组成结构为两个子层：一个多头注意力一个全连接层，每个子层会经过残差相加后进入LayerNorm，即</li><ul></p>
+$$
+LayerNorm(x+Sublayer(x))
+$$
 <blockquote>
 <p><strong>不同Normalization的方法</strong>：</p>
-<img src=img/3.png alt="image-20220314105230337" style="zoom:67%;" />
-
+<p><img src=img/3.png alt="image-20220314105230337" style="zoom:67%;" /></p>
 <p>Normalization是对数据在激活函数前进行归一化，然后再进行线性偏移，学习的参数是两个线性偏移参数。</p>
 <p>BN是对batch里所有图像的单特征进行归一化；LN是单batch(一个样本)所有通道特征进行归一化；IN是单batch单特征进行归一化；GN是多特征单图像进行归一化。这里再说说LN和BN的用处，Attention这篇论文里用的LN可能是因为当时是为了处理语言序列，而语言序列通常的输入长度是不同的，那么如果用BN的话所有batch输入的同一特征的长度（H，W维度）可能是不同的（<strong>就像上图第一个正方体画蓝色的正方形区域在HW维度上变成了高度参差的直方图</strong>），而Norm最终学得的参数相当于是全局的均值和方差，因此输入大小不同就导致BN训练中的波动较大，而用LN则不管输入大小如何都是对一个样本进行Norm，结果会更加稳定。</p>
 </blockquote>
-<ul><li>decoder结构和Encoder很像，但是多了一个mask保证t时刻不会看到t时刻以后的输入。</li></ui>
-
+<p><ul><li>decoder结构和Encoder很像，但是多了一个mask保证t时刻不会看到t时刻以后的输入。</li>&lt;/ui&gt;</p>
 <hr>
 <h3 id="2-注意力机制"><a href="#2-注意力机制" class="headerlink" title="2.注意力机制"></a>2.注意力机制</h3><h4 id="2-1直观感受"><a href="#2-1直观感受" class="headerlink" title="2.1直观感受"></a>2.1直观感受</h4><p>​        当我们说起提高对某某注意力时，我们时常会对这件事有特别的关注。神经网络的注意力机制也是这样，它主要用来提升对网络输入与输出间的相关度（<strong>General Attention</strong>）以及输入与输入之间的相关度(<strong>Self-Attention</strong>)。举个例子，在机器翻译中，注意力机制要做的事就是<strong>量化输入与输出词之间的相关度，并且对每个输出字赋予与它相关度高的输入字更高的权重，</strong>比如把<u>“我喜欢玩悠悠球”</u>翻译成<u>“I like playing yoyo.”</u>时，对于输出”playing”,输入“玩”相比于其他输入就应该有着更高的权重；而对于输出”yoyo”,输入“悠悠球”就应该有着更高的权重。</p>
 <h4 id="2-2Scaled-Dot-Product-Attention"><a href="#2-2Scaled-Dot-Product-Attention" class="headerlink" title="2.2Scaled Dot-Product Attention"></a>2.2Scaled Dot-Product Attention</h4><p>​        一个注意力函数是query到key-value的映射，其中query、key、value均是向量，output是所有value的加权和，这个权重取决于key和query的相关性。这里我的理解是，query就相当于上面我们说的我要翻译的一个词（悠悠球），而词库的key（yoyo、playing、dog…）用来衡量与query的距离，最终决定每一个输出value（单词的机器表示）的权重。<u>如果key和value不变，而query改变，那么对应的权重也会发生改变，这就是注意力机制</u>。<b>那么应该如何衡量相似度呢? </b></p>
@@ -161,7 +161,7 @@
 
 
 
-<p>​        假设query、key向量的维度均为$ d_k $（可以对短的向量进行补零），在计算中为了运用并行计算提高效率，将所有query排列成矩阵$ Q(n<em>dk) $,将所有key排列成矩阵$ K(m</em>dk) $,通过矩阵相乘完成内积后再除以$ \sqrt{d_k} $做归一化,$ V $是value向量组成的矩阵。</p>
+<p>​        假设query、key向量的维度均为$ d_k $（可以对短的向量进行补零），在计算中为了运用并行计算提高效率，将所有query排列成矩阵$ Q(n*dk) $,将所有key排列成矩阵$ K(m*dk) $,通过矩阵相乘完成内积后再除以$ \sqrt{d_k} $做归一化,$ V $是value向量组成的矩阵。</p>
 <p>​        <strong>这里为什么要除以$\sqrt{d_k}$？</strong>因为当${d_k}$很大的时候，向量差异值算出来就会相对于较小的${d_k}$更大，那么softmax后就会使得两极分化很严重，比如一个分量很接近于1而其他分量很接近于0，这在训练初期是我们不想看到的，因为softmax最终会趋向于这样的结果，但是一开始就这样会导致梯度太小不好训练。如果$d_k$比较小，除不除都可以。</p>
 <center><img src=img/5.png alt="image-20220320102354510" style="zoom:67%;" /></center>
 
@@ -203,12 +203,29 @@
 
 <center>The 128-dimensional positonal encoding for a sentence with the maximum lenght of 50. Each row represents the embedding vector </center>
 
-<h4 id="3-3正弦编码的线性性质"><a href="#3-3正弦编码的线性性质" class="headerlink" title="3.3正弦编码的线性性质"></a>3.3正弦编码的线性性质</h4><p>​        正弦编码的一个好的性质是对于$p_{t+k}$的位置信息，当k确定时，可以表示成与k有关的$p_t$的线性函数，即：<br>$$<br>p_{t+k}&#x3D;T^Kp_t<br>$$<br>证明只要找到矩阵$T^k$即可。$T^k$的形式如下：<br>$$<br>T^k&#x3D;\left[<br>\begin{matrix}<br>    \Phi_1^k &amp; 0&amp;… &amp; 0\<br>    0 &amp; \Phi_2^k &amp; …&amp; 0\<br>    0&amp;0&amp;…&amp;0\<br>    0&amp; 0&amp; 0&amp;\Phi_{\frac{d}{2}}<br>    \end{matrix}<br>    \right ]<br>$$<br>其中，<br>$$<br>\Phi_i^k&#x3D;\left[<br>\begin{matrix}<br> cos(w_ik)&amp;sin(w_ik)\<br> -sin(w_ik)&amp;cos(w_ik)<br>\end{matrix}<br>\right]<br>$$<br>这样在网络在学习过程中，用线性关系即可表征不同位置的输入间的相对关系。</p>
+<h4 id="3-3正弦编码的线性性质"><a href="#3-3正弦编码的线性性质" class="headerlink" title="3.3正弦编码的线性性质"></a>3.3正弦编码的线性性质</h4><p>​        正弦编码的一个好的性质是对于$p_{t+k}$的位置信息，当k确定时，可以表示成与k有关的$p_t$的线性函数，即：<br>$$
+p_{t+k}=T^Kp_t
+$$<br>证明只要找到矩阵$T^k$即可。$T^k$的形式如下：<br>$$
+T^k=\left[
+\begin{matrix}
+	\Phi_1^k & 0&... & 0\\
+	0 & \Phi_2^k & ...& 0\\
+	0&0&...&0\\
+	0& 0& 0&\Phi_{\frac{d}{2}}
+	\end{matrix}
+	\right ]
+$$<br>其中，<br>$$
+\Phi_i^k=\left[
+\begin{matrix}
+ cos(w_ik)&sin(w_ik)\\
+ -sin(w_ik)&cos(w_ik)
+\end{matrix}
+\right]
+$$<br>这样在网络在学习过程中，用线性关系即可表征不同位置的输入间的相对关系。</p>
 <h4 id="3-4为什么直接相加？"><a href="#3-4为什么直接相加？" class="headerlink" title="3.4为什么直接相加？"></a>3.4为什么直接相加？</h4><p>​        在网络结构图中我们可以看到位置编码与输入直接相加进了多头注意力机制中（二者拥有相同长度的维度）。从直觉来说，我们一般会使用concat而不是直接相加来保留更多的信息。这里我没有找到合理的理论解释，但是上边那篇博客的思维很好：<u>我们不应该去想相加有什么优势，而是相加有没有劣势。</u><b>从3.2部分的位置向量图中可以看到只有在低维度中存在着有效的位置信息，而在高维度位置分量的值基本只有0和1</b>。那么可以认为网络在学习过程中会用较高的维度来保存内容信息；而用较少的低纬度来保存相对位置信息。</p>
 <hr>
 <h3 id="4-参考文献"><a href="#4-参考文献" class="headerlink" title="4.参考文献"></a>4.参考文献</h3><ul>
-<li><p>Ashish Vaswani, Noam Shazeer, Niki Parmar,Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin.Attention Is All You Need. <strong><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1706.03762v5">arXiv:1706.03762v5</a></strong></p>
-</li>
+<li>Ashish Vaswani, Noam Shazeer, Niki Parmar,Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin.Attention Is All You Need. <strong><a target="_blank" rel="noopener" href="https://arxiv.org/abs/1706.03762v5">arXiv:1706.03762v5</a></strong></li>
 <li><p><a target="_blank" rel="noopener" href="https://kazemnejad.com/blog/transformer_architecture_positional_encoding/">https://kazemnejad.com/blog/transformer_architecture_positional_encoding/</a></p>
 </li>
 <li><p><a target="_blank" rel="noopener" href="https://timodenk.com/blog/linear-relationships-in-the-transformers-positional-encoding/">https://timodenk.com/blog/linear-relationships-in-the-transformers-positional-encoding/</a></p>
