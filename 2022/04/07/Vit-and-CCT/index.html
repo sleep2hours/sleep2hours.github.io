@@ -1,0 +1,301 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/logo_miccall.png"/>
+	<link rel="shortcut icon" href="/img/logo_miccall.png">
+	
+			    <title>
+    sleep2hours.github.io
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/mic_main.css" />
+    <link rel="stylesheet" href="/css/dropdownMenu.css" />
+    <meta name="keywords" content="Luo" />
+    
+    	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	 
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/bg.jpg') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+			    
+  
+
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+    
+		
+<!-- Layouts -->
+
+
+
+<!--  代码渲染  -->
+<link rel="stylesheet" href="/css/prism_coy.css" />
+<link rel="stylesheet" href="/css/typo.css" />
+<!-- 文章页 -->
+<body class="is-loading">
+    <!-- Wrapper 外包 s-->
+    <div id="wrapper" class="fade-in">
+        <!-- Intro 头部显示 s -->
+        <!-- Intro 头部显示 e -->
+        <!-- Header 头部logo start -->
+        <header id="header">
+    <a href="/" class="logo">Welcoming!</a>
+</header>
+        <!-- Nav 导航条 start -->
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow">主页</a>
+	        </li>
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="#s1">分类</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        <a class="category-link" href="/categories/CV/">CV</a></li><li><a class="category-link" href="/categories/DL/">DL</a></li><li><a class="category-link" href="/categories/cv/">cv</a></li><li><a class="category-link" href="/categories/%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC/">数学推导</a></li><li><a class="category-link" href="/categories/%E6%95%B0%E5%AD%A6%E6%A8%A1%E5%9E%8B/">数学模型</a>
+	                    </ul>
+	        </li>
+	        
+	        <!-- archives  归档   --> 
+	        
+	        <li class="active">
+	            <a href="#s1">归档</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        <a class="archive-link" href="/archives/2022/04/">April 2022</a></li><li><a class="archive-link" href="/archives/2022/03/">March 2022</a></li><li><a class="archive-link" href="/archives/2022/02/">February 2022</a></li><li><a class="archive-link" href="/archives/2022/01/">January 2022</a></li><li><a class="archive-link" href="/archives/2021/11/">November 2021</a>
+	                    </ul>
+	        </li>
+	        
+	        
+		        <!-- Pages 自定义   -->
+		        
+		        <li>
+		            <a href="/about/" title="简历">
+		                简历
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/tag/" title="标签">
+		                标签
+		            </a>
+		        </li>
+		        
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+                    <li>
+                        <a title="github" href="https://github.com/sleep2hours" target="_blank" rel="noopener">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                    
+			</ul>
+</nav>
+
+        <div id="main" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(img/back_vit.png);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >Vit and CCT</h2></a>
+            </div>
+            <!-- Post -->
+            <div class="typo" style="padding: 3rem;">
+                <h2 id="Vision-Transformer-Compact-Convolutional-Transformer"><a href="#Vision-Transformer-Compact-Convolutional-Transformer" class="headerlink" title="Vision Transformer+Compact Convolutional Transformer"></a>Vision Transformer+Compact Convolutional Transformer</h2><hr>
+<h3 id="1-ViT"><a href="#1-ViT" class="headerlink" title="1.ViT"></a>1.ViT</h3><blockquote>
+<p>尽管transformer在自然语言处理中已经成为了标准方法，但它在计算机视觉领域中只是作为CNN的辅助。本文提出了transformer在cv领域的应用对CNN的依赖是没有必要的，纯transformer网络来解决图片分类问题，当在一个大数据集上进行预训练后，取得了不错的效果并且减少了计算资源的使用（？2500天TPU天数）。</p>
+</blockquote>
+<h4 id="1-1Introduction"><a href="#1-1Introduction" class="headerlink" title="1.1Introduction"></a>1.1Introduction</h4><p>自注意力模型是NLP中最常用的模型，目前最常用的方法是先在一个大数据集上训练，再在一个具体的小数据集上修改。由于Transformer的运算高效，使得网络结构可以变得很大，而且有趣的是在数据集和模型增长的过程中不会出现饱和的情况。</p>
+<p>对于长度为$N$的序列，Transformer的计算复杂度是$O(n^2)$，所以在NLP中，由于句子长度比较短（e.g.$N=512$），Transformer是可行的，但对于整个图片(e.g.$N=224*224$)，复杂度就很可怕。在以前的工作中，有人试过对图片的H、W维分别进行Transformer，<strong>而本文则将图片分成更小的Patch从而直接使用标准Transfomer，就像把图片看成句子，每个Patch看成句子里的单词。</strong>由于Transformer存在位置编码，因此缺少局部特性、平移不变性等特性，导致在中等数据集上表现得不如CNN，而在大数据集上则取得了很不错的效果。</p>
+<center><img src="img/1.png" style="zoom:80%;" /></center>
+
+
+<center>Figure 1:ViT Model overview</center>
+
+<h4 id="1-2Method"><a href="#1-2Method" class="headerlink" title="1.2Method"></a>1.2Method</h4><p>对于一个图片$ x\epsilon R^{H*W*C} $，将其分成patch的序列$ x_p\epsilon R^{N*（P^2C）} $，$ P $是Patch的大小，因此：<br>$$
+N=\frac{HW}{P^2}
+$$<br>由此得到图像的Patch Embedding.。</p>
+<p>借鉴<strong>BERT</strong>的分类token，在输入的序列前加一个可学习的分类token，最终对该token的输出加一个MLP分类得到图像分类。在Position embeding方面，作者采用了BERT中的1D编码，也采用了2D编码或者相对位置编码，<strong>最终得到的结果都差不多</strong>。可能是因为图片Patch已经比较大了，因此对它们的排列顺序对结果不会产生太大的影响，比如把一个图片分两个Patch，那么调换Patch的位置对其分类结果影响不大。网络的计算过程如下：</p>
+<center><img src="img/2.png" alt="image-20220406152329849" style="zoom:100%;" /></center>
+
+<hr>
+<h3 id="2-CCT"><a href="#2-CCT" class="headerlink" title="2.CCT"></a>2.CCT</h3><blockquote>
+<p>ViT由于需要在大数据集上进行预训练才能取得不错的效果，因此被认为不适用于小数据集。本文通过一种序列池化策略消除了class token和position embedding的使用，并且第一次证明了Transformer可以在小数据集上被使用，并且在大数据集上也可以被使用。</p>
+</blockquote>
+<h4 id="2-1Introduction"><a href="#2-1Introduction" class="headerlink" title="2.1Introduction"></a>2.1Introduction</h4><p>在一些研究领域比如医疗图像，它们的数据集是非常少的并且可能很难基于正确的label，并且很多研究人员可能不具有大量的运算资源，因此transformer这样的自注意力机制模型的良好的全局信息搜索能力可以较好的处理这些领域的问题，并且降低研究的门槛。但ViT这样的<strong>“贵物”</strong>需要很大的数据集来喂，因此本文想提出适用于小数据集的Transformer.</p>
+<p>本文的工作试图填补CNN和Transformer之间的隔阂，在提取到较好的图像特征的同时满足移位不变性（spitial invariant），并且可以进行权重共享。<b>文章会先介绍更小的Vit结构——Vit-Lite，再此基础上利用序列池化来构建Compact Vision Transformer（CVT），最后引入卷积块得到Compact Convolutional Transformer（CCT）</b>。最终在取得不错的识别效果的同时极大地减少了网络的大小。</p>
+<p>总而言之，本文的贡献为：</p>
+<ul>
+<li><p>1.介绍了Vit-Lite打破了ViT的“数据饕餮”的看法，可以在小数据集上进行训练。</p>
+</li>
+<li><p>2.介绍了CVT来移除了ViT中class token的使用，并且提升了精确度。</p>
+</li>
+<li><p>3.介绍了CCT提升了输入图片大小的灵活度并且弱化了位置编码的影响。</p>
+</li>
+</ul>
+<center><img src="img/3.png" alt="image-20220406200907211" style="zoom:100%;" /></center>
+
+<center>Figure 2:Three Model Overview</center>
+
+<h4 id="2-2Method"><a href="#2-2Method" class="headerlink" title="2.2Method"></a>2.2Method</h4><h5 id="2-2-1卷积块"><a href="#2-2-1卷积块" class="headerlink" title="2.2.1卷积块"></a>2.2.1卷积块</h5><p>CCT结构中用卷积代替了Patch划分来生成token：<br>$$
+x_0=MaxPool(ReLU(Conv2d(x)))
+$$<br>即对输入图像进行卷积-&gt;ReLu激活-&gt;池化，在前几个卷积块中，卷积核的个数为64，最后一个卷积块的卷积核个数为Embedding的维数$d$。这样最终得到的图像为$x\epsilon R^{H_n*W_n*d}$，最终的序列长度即为$H_n*W_n$。这样的操作的好处是：</p>
+<ul>
+<li><p>1.不再要求输入的图片大小是Patch的整数倍。</p>
+</li>
+<li><p>2.<b>利用卷积操作得到的特征原本就保存了一些图片的空间特征，因此即使没有进行Position Embedding也能保留图片的局部信息，</b>这就弱化了Position Embedding的影响。</p>
+</li>
+</ul>
+<h5 id="2-2-2序列池化"><a href="#2-2-2序列池化" class="headerlink" title="2.2.2序列池化"></a>2.2.2序列池化</h5><p>为了去除class taken，文章对经过Transformer后的输出在每一维上对所有数据进行了池化，再用池化后的数据进行分类。具体的池化步骤是：</p>
+<ul>
+<li>1.假设Transformer的输出数据是：</li>
+</ul>
+$$
+X_L=f(x_0)\epsilon R^{b*n*d}
+$$
+<p>b是batch的大小，n是序列长度（$H_n*W_n$）,d是Embedding的长度。</p>
+<ul>
+<li>2.在d的每一维上进行softmax：</li>
+</ul>
+$$
+X_L'=softmax(g(x_L)^T)\epsilon R^{b*1*n}
+$$
+<ul>
+<li>3.计算输出：</li>
+</ul>
+$$
+z=X_L'X_L
+$$
+<p>这一操作相当于给序列的输入以不同的重要性权重，并由此得到输出，即每一个特征中（总共有d个特征）取最明显的特征来决定输出。</p>
+<hr>
+
+            </div>
+
+            <!-- Post Comments -->
+            
+    <!-- 使用 DISQUS_CLICK -->
+<div id="disqus-comment">
+    <div id="disqus_thread"></div>
+
+<!-- add animation -->
+<style>
+	.disqus_click_btn {
+            line-height: 30px;
+            margin: 0;
+            min-width: 50px;
+            padding: 0 14px;
+            display: inline-block;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0;
+            overflow: hidden;
+            will-change: box-shadow;
+            transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1), color .2s cubic-bezier(.4, 0, .2, 1);
+            outline: 0;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            vertical-align: middle;
+            border: 0;
+            background: rgba(158, 158, 158, .2);
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+            color: #fff;
+            background-color: #7EC0EE;
+            text-shadow: 0
+        }
+</style>
+	
+<div class="btn_click_load" id="disqus_bt"> 
+    <button class="disqus_click_btn">点击查看评论</button>
+</div>
+
+<!--
+<script type="text/javascript">
+$('.btn_click_load').click(function() {
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'http-miccall-tech'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    document.getElementById('disqus_bt').style.display = "none";
+});
+</script>
+-->
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://example.com/2022/04/07/Vit-and-CCT/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://example.com/2022/04/07/Vit-and-CCT/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+</script>
+
+<script type="text/javascript">
+    $('.btn_click_load').click(function() {  //click to load comments
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document;
+            var s = d.createElement('script');
+            s.src = '//http-miccall-tech.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', + new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+        $('.btn_click_load').css('display','none');
+    });
+</script>
+</div>
+<style>
+    #disqus-comment{
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+
+        </div>
+        <!-- Copyright 版权 start -->
+                <div id="copyright">
+            <ul>
+                <li>&copy;Powered By <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/" style="border-bottom: none;">hexo</a></li>
+                <li>Design: <a target="_blank" rel="noopener" href="http://miccall.tech " style="border-bottom: none;">miccall</a></li>
+            </ul>
+            
+                <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+			
+        </div>
+    </div>
+</body>
+
+
+
+ 	
+</html>

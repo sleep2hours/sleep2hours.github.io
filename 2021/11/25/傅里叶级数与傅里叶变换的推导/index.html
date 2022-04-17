@@ -1,0 +1,433 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/logo_miccall.png"/>
+	<link rel="shortcut icon" href="/img/logo_miccall.png">
+	
+			    <title>
+    sleep2hours.github.io
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/mic_main.css" />
+    <link rel="stylesheet" href="/css/dropdownMenu.css" />
+    <meta name="keywords" content="Luo" />
+    
+    	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	 
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/bg.jpg') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+			    
+  
+
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+    
+		
+<!-- Layouts -->
+
+
+
+<!--  代码渲染  -->
+<link rel="stylesheet" href="/css/prism_coy.css" />
+<link rel="stylesheet" href="/css/typo.css" />
+<!-- 文章页 -->
+<body class="is-loading">
+    <!-- Wrapper 外包 s-->
+    <div id="wrapper" class="fade-in">
+        <!-- Intro 头部显示 s -->
+        <!-- Intro 头部显示 e -->
+        <!-- Header 头部logo start -->
+        <header id="header">
+    <a href="/" class="logo">Welcoming!</a>
+</header>
+        <!-- Nav 导航条 start -->
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow">主页</a>
+	        </li>
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="#s1">分类</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        <a class="category-link" href="/categories/CV/">CV</a></li><li><a class="category-link" href="/categories/DL/">DL</a></li><li><a class="category-link" href="/categories/cv/">cv</a></li><li><a class="category-link" href="/categories/%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC/">数学推导</a></li><li><a class="category-link" href="/categories/%E6%95%B0%E5%AD%A6%E6%A8%A1%E5%9E%8B/">数学模型</a>
+	                    </ul>
+	        </li>
+	        
+	        <!-- archives  归档   --> 
+	        
+	        <li class="active">
+	            <a href="#s1">归档</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        <a class="archive-link" href="/archives/2022/04/">April 2022</a></li><li><a class="archive-link" href="/archives/2022/03/">March 2022</a></li><li><a class="archive-link" href="/archives/2022/02/">February 2022</a></li><li><a class="archive-link" href="/archives/2022/01/">January 2022</a></li><li><a class="archive-link" href="/archives/2021/11/">November 2021</a>
+	                    </ul>
+	        </li>
+	        
+	        
+		        <!-- Pages 自定义   -->
+		        
+		        <li>
+		            <a href="/about/" title="简历">
+		                简历
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/tag/" title="标签">
+		                标签
+		            </a>
+		        </li>
+		        
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+                    <li>
+                        <a title="github" href="https://github.com/sleep2hours" target="_blank" rel="noopener">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                    
+			</ul>
+</nav>
+
+        <div id="main" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(img/back-fourier.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >傅里叶级数的推导</h2></a>
+            </div>
+            <!-- Post -->
+            <div class="typo" style="padding: 3rem;">
+                <h2 id="傅里叶级数"><a href="#傅里叶级数" class="headerlink" title="傅里叶级数"></a>傅里叶级数</h2><blockquote>
+<p>本篇为B站上DR_CAN老师的<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Et411R78v?from=search&amp;seid=6384791084509470860&amp;spm_id_from=333.337.0.0">教学视频</a>笔记，跟着推导后觉得受益匪浅但隔一段时间又有所遗忘，故整理下此笔记供自己复习以及其他同学参考。</p>
+</blockquote>
+<h3 id="1-三角函数的正交性"><a href="#1-三角函数的正交性" class="headerlink" title="1.三角函数的正交性"></a>1.三角函数的正交性</h3><h4 id="1-1三角函数系"><a href="#1-1三角函数系" class="headerlink" title="1.1三角函数系"></a>1.1三角函数系</h4><p><strong><u>三角函数系</u></strong>是指如下的一个三角函数集合：<br>$$
+\{0（sin0x）,1（cos0x）,sinx,cosx,sin2x,cos2x,...,sinnx,cosnx,...\}
+$$<br>其中，任意两个函数是<strong><u>正交</u></strong>的。</p>
+<h4 id="1-2什么是三角函数的正交？"><a href="#1-2什么是三角函数的正交？" class="headerlink" title="1.2什么是三角函数的正交？"></a>1.2什么是三角函数的正交？</h4><p>回忆一下我们在直角坐标系中定义的向量正交的概念：<strong>在向量空间中，如果两个向量内积为0，则说明它们两个是正交的，这也意味着它们是相互垂直的。</strong></p>
+<p>向量内积计算公式如下：<br>$$
+\vec a*\vec b=\sum_{i=1}^{n}a_ib_i
+$$<br>即向量的<strong>对应分量的乘积和为0。</strong></p>
+<p>那么，类比于向量，我们可以将同一$x$处$f(x)、g(x)$的值作为它们对应的分量，这样向量内积的离散分量乘积求和就变成了<strong>函数在一定区间上的乘积积分</strong>，即：<br>$$
+f(x)*g(x)=\int_{x_0}^{x_1}f(x)g(x)dx
+$$<br>故若两个函数正交，则上述积分式计算结果为0。</p>
+<p>现在回到三角函数系，我们可以计算得出<br>$$
+\int_{T}sinnxcosmxdx=
+	\begin{cases}
+	0,n\neq m;\\
+	\pi,n=m
+	\end{cases}
+$$</p>
+$$
+\int_{T}sinnxsinmxdx=
+	\begin{cases}
+	0,n\neq m;\\
+	\pi,n=m
+	\end{cases}
+$$
+$$
+\int_{T}cosnxcosmxdx=
+	\begin{cases}
+	0,n\neq m;\\
+	\pi,n=m
+	\end{cases}
+$$
+<p>故<strong><u>三角函数系中任意两个函数在最小公共正周期上的内积为零，即二者正交</u>。</strong></p>
+<h3 id="2-周期为的函数展开为傅里叶级数"><a href="#2-周期为的函数展开为傅里叶级数" class="headerlink" title="2.周期为的函数展开为傅里叶级数"></a>2.周期为$2 \pi$的函数展开为傅里叶级数</h3><p>设$f(x)=f(x+2\pi)$，$f(x)$的傅里叶级数形式如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>$$f(x)=\frac{a_0}{2}+\sum_{n=1}^{\infty}a_ncosnx+\sum_{n=1}^{\infty}b_nsinnx$$​</th>
+<th>（1）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="2-1的计算"><a href="#2-1的计算" class="headerlink" title="2.1的计算"></a>2.1$a_0$的计算</h4><p>对式$(1)$在$[-\pi,\pi]$​上进行积分，并且考虑到：<br>$$
+\int_{-\pi}^{\pi}sinnxdx=0
+$$</p>
+$$
+\int_{-\pi}^{\pi}cosnxdx=0
+$$
+<p>因此得到：<br>$$
+a_0=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)dx
+$$</p>
+<h4 id="2-2的计算"><a href="#2-2的计算" class="headerlink" title="2.2的计算"></a>2.2$a_n$的计算</h4><p>给式$(1)$​两边同时乘以$cosmx$并在$[-\pi,\pi]$上进行积分，得：<br>$$
+\int_{-\pi}^{\pi}f(x)cosmxdx=\int_{-\pi}^{\pi}\frac{a_0}{2}cosmxdx+\int_{-\pi}^{\pi}\sum_{n=1}^{\infty}a_ncosnxcosmxdx+\int_{-\pi}^{\pi}\sum_{n=1}^{\infty}b_nsinnxcosmxdx
+$$<br><strong>由三角函数的正交性得，</strong><br>$$
+\int_{-\pi}^{\pi}\frac{a_0}{2}cosmxdx=0
+$$</p>
+$$
+\int_{-\pi}^{\pi}\sum_{n=1}^{\infty}b_nsinnxcosmxdx=0
+$$
+<p>并且，<br>$$
+\int_{-\pi}^{\pi}a_ncosnxcosmxdx=
+	\begin{cases}
+	0,m\neq n;\\
+	\pi a_n,m=n
+	\end{cases}
+$$<br>因此得到：<br>$$
+a_n=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)cosnxdx
+$$</p>
+<h4 id="2-3的计算"><a href="#2-3的计算" class="headerlink" title="2.3的计算"></a>2.3$b_n$的计算</h4><p>与<strong>2.2</strong>类似，得到：<br>$$
+b_n=\frac{1}{\pi}\int_{-\pi}^{\pi}f(x)sinnxdx
+$$</p>
+<h3 id="3-周期为的函数展开为傅里叶级数"><a href="#3-周期为的函数展开为傅里叶级数" class="headerlink" title="3.周期为的函数展开为傅里叶级数"></a>3.周期为$2L$的函数展开为傅里叶级数</h3><p>设$f(t)=f(t+2L)$​，利用<strong>换元法</strong>，令$x=\frac{\pi}{L}t$，代入一些值来说明我们这么替换的目的：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>$t$</th>
+<th>$x$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$0$</td>
+<td>0</td>
+</tr>
+<tr>
+<td>$2L$</td>
+<td>$2\pi$</td>
+</tr>
+<tr>
+<td>$4L$</td>
+<td>$4\pi$</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>可以看到<strong>原本周期为$T=2L$的$f(t)$，被转化为了$T=2\pi$的$f(\frac{L}{\pi}x)$</strong>，令$g(x)=f(\frac{L}{\pi}x)$，并由<strong>2.2</strong>得到$g(x)$的傅里叶级数展开为：<br>$$
+g(x)=\frac{a_0}{2}+\sum_{n=1}^{\infty}(a_ncosnx+b_nsinnx)
+$$<br>其中，<br>$$
+a_0=\frac{1}{\pi}\int_{-\pi}^{\pi}g(x)dx
+$$</p>
+$$
+a_n=\frac{1}{\pi}\int_{-\pi}^{\pi}g(x)cosnxdx
+$$
+$$
+b_n=\frac{1}{\pi}\int_{-\pi}^{\pi}g(x)sinnxdx
+$$
+<p>再将$x$转化为$t$，<strong>主要有以下变换：</strong><br>$$
+cosnx=cos\frac{n\pi}{L}t
+$$</p>
+$$
+sinnx=sin\frac{n\pi}{L}t
+$$
+$$
+\frac{1}{\pi}\int_{-\pi}^{\pi}dx=\frac{1}{\pi}\frac{\pi}{L}\int_{-L}^{L}dt=\frac{1}{L}\int_{-L}^{L}dt
+$$
+<p><strong>最终得到$f(t)$的傅里叶级数展开如下:</strong><br>$$
+f(t)=\frac{a_0}{2}+\sum_{n=1}^{\infty}(a_ncos\frac{n\pi}{L}t+b_nsin\frac{n\pi}{L}t)
+$$<br><strong><u>又由于工程上$t$从0开始，并且我们引入$\omega =\frac{2\pi}{T}=\frac{\pi}{L}$</u>，</strong>得到：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>$f(t)=\frac{a_0}{2}+\sum_{n=1}^{\infty}(a_ncosn\omega t+b_nsinn\omega t)$</th>
+<th>(2)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+$$
+a_0=\frac{2}{T}\int_{0}^{T}f(t)dt
+$$
+$$
+a_n=\frac{2}{T}\int_{0}^{T}f(t)cosn\omega tdt
+$$
+$$
+b_n=\frac{2}{T}\int_{0}^{T}f(t)sinn\omega tdt
+$$
+<h3 id="4-傅里叶级数的复数形式"><a href="#4-傅里叶级数的复数形式" class="headerlink" title="4.傅里叶级数的复数形式"></a>4.傅里叶级数的复数形式</h3><blockquote>
+<p>本节需要借助被称为<strong>宇宙中最美丽的公式——欧拉公式：</strong>$e^{i\theta}=cos\theta+isin\theta$。</p>
+</blockquote>
+<p>由<strong>欧拉公式</strong>可以推得：<br>$$
+cos\theta=\frac{e^{i\theta}+e^{-i\theta}}{2}
+$$</p>
+$$
+sin\theta=\frac{e^{i\theta}-e^{-i\theta}}{2i}
+$$
+<p>将以上两个公式代入公式(2)，可以得到$f(t)$的如下形式：<br>$$
+f(t)=\frac{a_0}{2}+\sum_{n=1}^{\infty}(a_n\frac{e^{in\omega t}+e^{-in\omega t}}{2}+b_n\frac{e^{in\omega t}-e^{-in\omega t}}{2i})
+$$</p>
+$$
+=\frac{a_0}{2}+\sum_{n=1}^{\infty}(\frac{a_n-ib_n}{2}e^{in\omega t}+\frac{a_n+ib_n}{2}e^{-in\omega t})
+$$
+$$
+=\sum_{n=0}^{0}\frac{a_0}{2}e^{in\omega t}+\sum_{n=1}^{\infty}\frac{a_n-ib_n}{2}e^{in\omega t}+\sum_{n=-\infty}^{-1}\frac{a_{-n}+ib_{-n}}{2}e^{in\omega t}
+$$
+$$
+=\sum_{n=-\infty}^{\infty}c_ne^{jn\omega t}
+$$
+<p>其中：<br>$$
+c_n=
+\begin{cases}
+\frac{a_0}{2},n=0;\\
+\frac{a_n-ib_n}{2},n=1,2,3...;\\
+\frac{a_{-n}+ib_{-n}}{2},n=-1,-2,-3...
+\end{cases}
+$$<br>接下来我们计算系数$c_n$​（<strong>以下部分是全篇第一个让我觉得<u>非常惊艳</u></strong>的地方）:<br>$$
+\begin{align}
+\frac{a_n-ib_n}{2}&=\frac{\frac{2}{T}\int_{0}^{T}f(t)cosn\omega tdt-i\frac{2}{T}\int_{0}^{T}f(t)sinn\omega tdt}{2}\\
+&=\frac{\int_{0}^{T}f(t)(cosn\omega t-isinn\omega t)dt}{T}\\
+&=\frac{\int_{0}^{T}f(t)(cosn\omega t-isinn\omega t)dt}{T}\\
+&=\frac{1}{T}\int_{0}^{T}f(t)e^{-in\omega t}dt
+\end{align}
+$$<br>同理可得：<br>$$
+\frac{a_{-n}+ib_{-n}}{2}=\frac{1}{T}\int_{0}^{T}f(t)e^{-in\omega t}dt
+$$<br>并且：<br>$$
+C_0=\frac{a_0}{2}=\frac{1}{T}\int_{0}^{T}f(t)dt=\frac{1}{T}\int_{0}^{T}f(t)e^{-in\omega t}dt
+$$<br>相信聪明的你已经兴奋地注意到了一点：<strong><u>原本用分段函数表示的$ c_n $居然可以统一成==同一种形式==！！</u></strong></p>
+<p>综上所述，周期为$T$的函数$f(t)$的傅里叶级数可以表示为：<br>$$
+f(t)=\sum_{-\infty}^{\infty}c_ne^{jnwt},c_n=\frac{1}{T}\int_{0}^{T}f(t)e^{-in\omega t}dt
+$$</p>
+
+            </div>
+
+            <!-- Post Comments -->
+            
+    <!-- 使用 DISQUS_CLICK -->
+<div id="disqus-comment">
+    <div id="disqus_thread"></div>
+
+<!-- add animation -->
+<style>
+	.disqus_click_btn {
+            line-height: 30px;
+            margin: 0;
+            min-width: 50px;
+            padding: 0 14px;
+            display: inline-block;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0;
+            overflow: hidden;
+            will-change: box-shadow;
+            transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1), color .2s cubic-bezier(.4, 0, .2, 1);
+            outline: 0;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            vertical-align: middle;
+            border: 0;
+            background: rgba(158, 158, 158, .2);
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+            color: #fff;
+            background-color: #7EC0EE;
+            text-shadow: 0
+        }
+</style>
+	
+<div class="btn_click_load" id="disqus_bt"> 
+    <button class="disqus_click_btn">点击查看评论</button>
+</div>
+
+<!--
+<script type="text/javascript">
+$('.btn_click_load').click(function() {
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'http-miccall-tech'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    document.getElementById('disqus_bt').style.display = "none";
+});
+</script>
+-->
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://example.com/2021/11/25/%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0%E4%B8%8E%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E7%9A%84%E6%8E%A8%E5%AF%BC/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://example.com/2021/11/25/%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0%E4%B8%8E%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E7%9A%84%E6%8E%A8%E5%AF%BC/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+</script>
+
+<script type="text/javascript">
+    $('.btn_click_load').click(function() {  //click to load comments
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document;
+            var s = d.createElement('script');
+            s.src = '//http-miccall-tech.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', + new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+        $('.btn_click_load').css('display','none');
+    });
+</script>
+</div>
+<style>
+    #disqus-comment{
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+
+        </div>
+        <!-- Copyright 版权 start -->
+                <div id="copyright">
+            <ul>
+                <li>&copy;Powered By <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/" style="border-bottom: none;">hexo</a></li>
+                <li>Design: <a target="_blank" rel="noopener" href="http://miccall.tech " style="border-bottom: none;">miccall</a></li>
+            </ul>
+            
+                <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+			
+        </div>
+    </div>
+</body>
+
+
+
+ 	
+</html>

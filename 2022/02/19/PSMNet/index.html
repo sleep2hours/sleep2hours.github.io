@@ -1,0 +1,283 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/logo_miccall.png"/>
+	<link rel="shortcut icon" href="/img/logo_miccall.png">
+	
+			    <title>
+    sleep2hours.github.io
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/mic_main.css" />
+    <link rel="stylesheet" href="/css/dropdownMenu.css" />
+    <meta name="keywords" content="Luo" />
+    
+    	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	 
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+    <style type="text/css">
+        body:before {
+          content: ' ';
+          position: fixed;
+          top: 0;
+          background: url('/img/bg.jpg') center 0 no-repeat;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-size: cover; 
+        }
+    </style>
+
+			    
+  
+
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
+    
+		
+<!-- Layouts -->
+
+
+
+<!--  代码渲染  -->
+<link rel="stylesheet" href="/css/prism_coy.css" />
+<link rel="stylesheet" href="/css/typo.css" />
+<!-- 文章页 -->
+<body class="is-loading">
+    <!-- Wrapper 外包 s-->
+    <div id="wrapper" class="fade-in">
+        <!-- Intro 头部显示 s -->
+        <!-- Intro 头部显示 e -->
+        <!-- Header 头部logo start -->
+        <header id="header">
+    <a href="/" class="logo">Welcoming!</a>
+</header>
+        <!-- Nav 导航条 start -->
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow">主页</a>
+	        </li>
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="#s1">分类</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        <a class="category-link" href="/categories/CV/">CV</a></li><li><a class="category-link" href="/categories/DL/">DL</a></li><li><a class="category-link" href="/categories/cv/">cv</a></li><li><a class="category-link" href="/categories/%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC/">数学推导</a></li><li><a class="category-link" href="/categories/%E6%95%B0%E5%AD%A6%E6%A8%A1%E5%9E%8B/">数学模型</a>
+	                    </ul>
+	        </li>
+	        
+	        <!-- archives  归档   --> 
+	        
+	        <li class="active">
+	            <a href="#s1">归档</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        <a class="archive-link" href="/archives/2022/04/">April 2022</a></li><li><a class="archive-link" href="/archives/2022/03/">March 2022</a></li><li><a class="archive-link" href="/archives/2022/02/">February 2022</a></li><li><a class="archive-link" href="/archives/2022/01/">January 2022</a></li><li><a class="archive-link" href="/archives/2021/11/">November 2021</a>
+	                    </ul>
+	        </li>
+	        
+	        
+		        <!-- Pages 自定义   -->
+		        
+		        <li>
+		            <a href="/about/" title="简历">
+		                简历
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/tag/" title="标签">
+		                标签
+		            </a>
+		        </li>
+		        
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+                    
+                    <li>
+                        <a title="github" href="https://github.com/sleep2hours" target="_blank" rel="noopener">
+                            <i class="icon fa fa-github"></i>
+                        </a>
+                    </li>
+                    
+			</ul>
+</nav>
+
+        <div id="main" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(img/back-PSMNet.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >PSMNet</h2></a>
+            </div>
+            <!-- Post -->
+            <div class="typo" style="padding: 3rem;">
+                <h2 id="Pyramid-Stereo-Matching-Network"><a href="#Pyramid-Stereo-Matching-Network" class="headerlink" title="Pyramid Stereo Matching Network"></a>Pyramid Stereo Matching Network</h2><h3 id="PSMNet"><a href="#PSMNet" class="headerlink" title="PSMNet"></a>PSMNet</h3><hr>
+<h4 id="1-Intros"><a href="#1-Intros" class="headerlink" title="1.Intros"></a>1.Intros</h4><p>比较早期的一个双目匹配网络，传统方法利用连续性等约束无法在一些病态区域（遮挡、无纹理等）做到精确配准，因此本文提出了一种利用上下文信息的网络结构。首先，利用空洞卷积扩大了网络的感受域，并用金字塔池化层融合不同尺度上。最后用<strong>stacked hourglass</strong>结构进行正则化以及中间自监督机制得到结果。</p>
+<hr>
+<h4 id="2-A-Few-Points"><a href="#2-A-Few-Points" class="headerlink" title="2.A Few Points"></a>2.A Few Points</h4><h5 id="2-1空间金字塔池化的思想"><a href="#2-1空间金字塔池化的思想" class="headerlink" title="2.1空间金字塔池化的思想"></a>2.1空间金字塔池化的思想</h5><p>我觉得这一步主要有两个操作，一是空洞卷积，扩大池化层的感受域；而是先通过下采样得到不同分辨率的特征，再通过上采样把它们叠在一起。</p>
+<blockquote>
+<p>感受域其实就是一层网络输出里每一个格子对应的原图上的范围，比如原图上每一个像素的感受域就是一个像素，而对图像采用2*2的普通卷积，那么输出的每一个像素就对应原图2*2大小的范围。因此空洞卷积就能扩大输出的感受域。</p>
+</blockquote>
+<h5 id="2-2stacked-hourglass结构"><a href="#2-2stacked-hourglass结构" class="headerlink" title="2.2stacked hourglass结构"></a>2.2stacked hourglass结构</h5><p>这一步有点像是在不同分辨率下的残差网络。原文中对比了直接使用残差网络和这一结构的效果，直接使用残差网络的效果远不如stacked hourglass结构。这个结构由连续三个不同分辨率下的残差网络构成，如下图。</p>
+<p><img src="1.png" alt=""></p>
+<p>在训练阶段，每一个部分都会输出一个视差的结果用于中间的监督训练。训练的loss由三个视差输出的加权得到。</p>
+<h5 id="2-3cost-volumn的理解"><a href="#2-3cost-volumn的理解" class="headerlink" title="2.3cost volumn的理解"></a>2.3cost volumn的理解</h5><p>之前在看立体综述那个ppt和其他论文的时候对<strong>cost volumn</strong>一直不太理解，这一次复现的时候通过编程才知道了其含义。从数学形式上，它是一个四维的张量，大小为H*W*D<em>S(S为特征数\</em>2)，它通过将特征图平移，得到了不同视差下特征对应的张量。比如在d=0这一维，即原左图和右图位置直接一一对应，因此分别将左图的特征填入d=0,s=0~S/2这一维，将右图填入d=0,s=S/2+1~S这一维；在d=1这一维，则左图特征填入位置不变，右图填入位置向右平移一个单位，空余位置补0.</p>
+<h5 id="2-4多通道卷积和三维卷积的理解"><a href="#2-4多通道卷积和三维卷积的理解" class="headerlink" title="2.4多通道卷积和三维卷积的理解"></a>2.4多通道卷积和三维卷积的理解</h5><p>之前一直比较疑惑多通道卷积和三维卷积的区别，因为从计算方式和卷积核的大小上来看它们是相似的。经过越哥的讲解以后才知道卷积的维数不取决于它的卷积核的通道数，而是它在<strong><u>滑动过程中有几个自由度</u></strong>，比如RGB图像的二维卷积的卷积核虽然有三个通道，但它只能在H和W方向上滑动，在C方向上其通道数就等于图像通道数，无法滑动，因此只有两个自由度；而若在一段RGB视频的图像序列上，三通道卷积核会在C方向上滑动检测一些例如运动方面的信息，这就是三维卷积。</p>
+<hr>
+<h4 id="3-复现结果"><a href="#3-复现结果" class="headerlink" title="3.复现结果"></a>3.复现结果</h4><p>我在复现时，由于电脑比较拉，所以把输入的分辨率调小为原文的一半，数据集也只采用了SceneFlow的Monkaka数据集，得到的结果不理想。训练的loss如下：</p>
+<p><img src="2.png" alt=""></p>
+<p>最终loss收敛于10左右，而在测试时loss大概在40-60，匹配结果只有在一些很明显的边沿才能看到一些。根据我的推测是因为当输入分辨率过小时，图像由于尺寸问题无法学习到上下文信息，并且训练集样本量也较少（只有3000）导致匹配的误差很大。</p>
+<p>最后使用原文预训练好的模型测试了一下，loss为0.65，定性图如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th><img src="3.png" alt=""></th>
+<th><img src="4.png" alt=""></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>结果看上去不错，但是对于大头照会错的比较离谱（可能是因为Monkaka皮肤太好没什么纹理的缘故？）：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th><img src="5.png" alt=""></th>
+<th><img src="6.png" alt=""></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>另外，还踩了个坑，把tensor转PIL图像的时候记得乘以255，否则结果显示出来就会有很多毛刺。</p>
+
+            </div>
+
+            <!-- Post Comments -->
+            
+    <!-- 使用 DISQUS_CLICK -->
+<div id="disqus-comment">
+    <div id="disqus_thread"></div>
+
+<!-- add animation -->
+<style>
+	.disqus_click_btn {
+            line-height: 30px;
+            margin: 0;
+            min-width: 50px;
+            padding: 0 14px;
+            display: inline-block;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0;
+            overflow: hidden;
+            will-change: box-shadow;
+            transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1), color .2s cubic-bezier(.4, 0, .2, 1);
+            outline: 0;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            vertical-align: middle;
+            border: 0;
+            background: rgba(158, 158, 158, .2);
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+            color: #fff;
+            background-color: #7EC0EE;
+            text-shadow: 0
+        }
+</style>
+	
+<div class="btn_click_load" id="disqus_bt"> 
+    <button class="disqus_click_btn">点击查看评论</button>
+</div>
+
+<!--
+<script type="text/javascript">
+$('.btn_click_load').click(function() {
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'http-miccall-tech'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    document.getElementById('disqus_bt').style.display = "none";
+});
+</script>
+-->
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://example.com/2022/02/19/PSMNet/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://example.com/2022/02/19/PSMNet/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+</script>
+
+<script type="text/javascript">
+    $('.btn_click_load').click(function() {  //click to load comments
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document;
+            var s = d.createElement('script');
+            s.src = '//http-miccall-tech.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', + new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+        $('.btn_click_load').css('display','none');
+    });
+</script>
+</div>
+<style>
+    #disqus-comment{
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+
+        </div>
+        <!-- Copyright 版权 start -->
+                <div id="copyright">
+            <ul>
+                <li>&copy;Powered By <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/" style="border-bottom: none;">hexo</a></li>
+                <li>Design: <a target="_blank" rel="noopener" href="http://miccall.tech " style="border-bottom: none;">miccall</a></li>
+            </ul>
+            
+                <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+			
+        </div>
+    </div>
+</body>
+
+
+
+ 	
+</html>
